@@ -7,7 +7,7 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <img
-              src="/assets/images/about-me.jpg"
+              src="/personal-portfolio/assets/images/about-me.jpg"
               alt="About Me"
               width={400}
               height={400}
