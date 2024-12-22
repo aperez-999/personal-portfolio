@@ -7,7 +7,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2">
             <img
-              src="/assets/images/profile-pic.jpg"
+              src="/personal-portfolio/assets/images/profile-pic.jpg"
               alt="Alejandro Perez"
               className="rounded-2xl shadow-xl w-full max-w-md mx-auto transform hover:scale-105 transition-transform duration-300"
             />
