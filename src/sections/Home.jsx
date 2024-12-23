@@ -32,7 +32,7 @@ export default function Home() {
                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700  transition-colors">
                 Work With Me
               </a>
-              <a href="/resume.html" target="_blank" rel="noopener noreferrer"
+              <a href="/personal-portfolio/resume.html" target="_blank" rel="noopener noreferrer"
                       className="px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
                       See my Resume
               </a>

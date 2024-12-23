@@ -38,7 +38,7 @@ export default function Navbar() {
             <a href="#projects" onClick={(e) => handleClick(e, 'projects')}
                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-500">Projects</a>
             <a
-              href="/resume.html" 
+              href="/personal-portfolio/resume.html" 
               className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-500"
             >
               Resume
