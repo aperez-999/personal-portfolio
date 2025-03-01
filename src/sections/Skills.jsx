@@ -58,7 +58,7 @@ export default function Skills() {
   
   // Function to get icon path based on framework name
   const getIconPath = (iconName) => {
-    return `/assets/icons/${iconName}.svg`;
+    return `./assets/icons/${iconName}.svg`;
   };
   
   return (

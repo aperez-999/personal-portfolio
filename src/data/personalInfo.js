@@ -13,7 +13,7 @@ export const personalInfo = {
   linkedin: "https://linkedin.com/in/alejandroperezrivero", 
   twitter: "https://twitter.com/aperez_999", 
   resume: "/resume",
-  profileImage: "/assets/images/profile-pic.jpg",
+  profileImage: "./assets/images/profile-pic.jpg",
   aboutMe: `I am a passionate and dedicated Computer Science student at Florida International University, 
   with a strong focus on web development and software engineering. My journey in programming began with 
   a curiosity about how websites work, which led me to explore various programming languages and frameworks.

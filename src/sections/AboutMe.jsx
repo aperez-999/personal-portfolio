@@ -73,7 +73,7 @@ export default function About() {
             variants={imageAnimation}
           >
             <motion.img
-              src="/assets/images/about-me.jpg"
+              src="./assets/images/about-me.jpg"
               alt="About Me"
               width={400}
               height={400}
