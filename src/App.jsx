@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Home from './sections/Home';
@@ -106,10 +106,8 @@ export default function App() {
     <ThemeProvider>
       <div className={darkMode ? 'dark' : ''}>
         <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
-          <Router>
-            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-            <AnimatedRoutes />
-          </Router>
+          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          <AnimatedRoutes />
         </div>
       </div>
     </ThemeProvider>
