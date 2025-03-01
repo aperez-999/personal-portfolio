@@ -2,21 +2,23 @@
   "name": "portfolio-app",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "homepage": "https://aperez-999.github.io/personal-portfolio",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint .",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "vite build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
+    "framer-motion": "^12.4.7",
     "postcss": "^8.4.49",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.15.1",
     "react-router-dom": "^7.1.0",
     "react-scripts": "^5.0.1"
   },
@@ -29,7 +31,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
-    "gh-pages": "^6.2.0",
+    "gh-pages": "^6.3.0",
     "globals": "^15.13.0",
     "tailwindcss": "^3.4.17",
     "vite": "^6.0.3"

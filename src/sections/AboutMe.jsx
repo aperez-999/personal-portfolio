@@ -1,46 +1,134 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { personalInfo } from '../data/personalInfo';
+
 export default function About() {
+  // Split the about me text into paragraphs
+  const aboutMeParagraphs = personalInfo.aboutMe.split('\n\n').filter(p => p.trim() !== '');
+  
+  // Set up intersection observer hooks for different elements
+  const [titleRef, titleInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+  
+  const [imageRef, imageInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  
+  const [contentRef, contentInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+  
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+  
+  const imageAnimation = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+  
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
   return (
-    <section id="about" className="py-16 bg-gray-50 dark:bg-gray-800">
+    <section id="about" className="py-16 bg-gray-50 dark:bg-gray-800 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">About Me</h2>
+        <motion.h2 
+          ref={titleRef}
+          initial="hidden"
+          animate={titleInView ? "visible" : "hidden"}
+          variants={fadeIn}
+          className="text-3xl font-bold text-center mb-12"
+        >
+          About Me
+        </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <img
-              src="/personal-portfolio/assets/images/about-me.jpg"
+          <motion.div
+            ref={imageRef}
+            initial="hidden"
+            animate={imageInView ? "visible" : "hidden"}
+            variants={imageAnimation}
+          >
+            <motion.img
+              src="/assets/images/about-me.jpg"
               alt="About Me"
               width={400}
               height={400}
-              className="rounded-2xl shadow-xl hover:scale-105 transition-transform duration-300"
+              className="rounded-2xl shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
-          </div>
+          </motion.div>
           
-          <div className="space-y-6">
-            <div>
+          <motion.div 
+            className="space-y-6"
+            ref={contentRef}
+            initial="hidden"
+            animate={contentInView ? "visible" : "hidden"}
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeIn}>
               <h3 className="text-2xl font-semibold mb-4">Introduction</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Hi, I'm Alejandro Perez, an 18-year-old Computer Science student at Florida International 
-                University's Honors College. Born and raised in Miami, Florida, I come from a Hispanic 
-                background—both of my parents are from Cuba.
+                {aboutMeParagraphs[0]}
               </p>
-            </div>
+            </motion.div>
             
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">Early Interest In Technology</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                From a young age, I've always been drawn to computers. That curiosity ultimately led me 
-                to pursue a degree in Computer Science, where I could turn my passion for computers into a career.
-              </p>
-            </div>
+            {aboutMeParagraphs.length > 1 && (
+              <motion.div variants={fadeIn}>
+                <h3 className="text-2xl font-semibold mb-4">My Passion</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {aboutMeParagraphs[1]}
+                </p>
+              </motion.div>
+            )}
             
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">Goals and Aspirations</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                My long-term goal is to become a full-stack developer, creating websites and applications 
-                that are not only visually appealing but also efficient and seamless in their functionality.
-              </p>
-            </div>
-          </div>
+            {aboutMeParagraphs.length > 2 && (
+              <motion.div variants={fadeIn}>
+                <h3 className="text-2xl font-semibold mb-4">Beyond Coding</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {aboutMeParagraphs[2]}
+                </p>
+              </motion.div>
+            )}
+            
+            <motion.div 
+              className="pt-4"
+              variants={fadeIn}
+            >
+              <motion.a 
+                href="#projects" 
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors inline-block"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View My Work
+              </motion.a>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
