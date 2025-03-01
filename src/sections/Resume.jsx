@@ -145,7 +145,7 @@ const Resume = () => {
 
       {/* Back to Portfolio Link */}
       <div className="mt-8 text-center">
-        <Link to="/" className={`${isDark ? 'text-blue-400' : 'text-blue-600'} hover:underline`}>
+        <Link to="./" className={`${isDark ? 'text-blue-400' : 'text-blue-600'} hover:underline`}>
           ← Back to Portfolio
         </Link>
       </div>
