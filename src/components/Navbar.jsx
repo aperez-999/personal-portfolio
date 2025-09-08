@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from './ThemeProvider';
 import { motion } from "framer-motion";
 
 export default function Navbar() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { isDark, setIsDark } = useTheme();
 
   const handleClick = (e, id) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
     setIsOpen(false);
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollToId: id } });
+    } else {
+      const element = document.getElementById(id);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   // Animation variants
@@ -83,13 +89,13 @@ export default function Navbar() {
           </motion.div> 
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
             {['home', 'about', 'skills', 'projects'].map((item, i) => (
               <motion.a 
                 key={item}
                 href={`#${item}`} 
                 onClick={(e) => handleClick(e, item)}
-                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-500"
+                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
                 custom={i}
                 variants={linkVariants}
               >
@@ -98,12 +104,17 @@ export default function Navbar() {
             ))}
             
             <motion.div custom={4} variants={linkVariants}>
-              <Link
-                to="/resume" 
-                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-500"
-              >
-                Resume
-              </Link>
+              {(() => {
+                const resumeClass = ({ isActive }) => (
+                  "transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded " +
+                  (isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400')
+                );
+                return (
+                  <NavLink to="/resume" className={resumeClass}>
+                    Resume
+                  </NavLink>
+                );
+              })()}
             </motion.div>
             
             <motion.button
@@ -120,7 +131,7 @@ export default function Navbar() {
             
             <motion.a 
               href="mailto:alexperezr456@gmail.com"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-500"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               custom={6}
               variants={linkVariants}
               whileHover={{ scale: 1.05 }}
@@ -148,6 +159,9 @@ export default function Navbar() {
             <motion.button 
               onClick={() => setIsOpen(!isOpen)} 
               className="p-2 text-gray-600 dark:text-gray-300 transition-all duration-500"
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -163,6 +177,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <motion.div 
+          id="mobile-menu"
           className={`md:hidden ${isOpen ? 'block' : 'hidden'} pb-4`}
           initial={{ height: 0, opacity: 0 }}
           animate={{ 
@@ -177,7 +192,7 @@ export default function Navbar() {
                 key={item}
                 href={`#${item}`} 
                 onClick={(e) => handleClick(e, item)}
-                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.1 + (i * 0.1) }}
@@ -191,8 +206,9 @@ export default function Navbar() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <Link to="/resume"
-                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Resume</Link>
+              <NavLink to="/resume"
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) => `block py-2 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'}`}>Resume</NavLink>
             </motion.div>
             
             <motion.a 

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const ProjectCard = ({ project }) => {
-  const { title, description, image, codeUrl, liveUrl, technologies } = project;
+  const { title, description, image, codeUrl, liveUrl, technologies, slug } = project;
+  const computedSlug = slug || (title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   
+  const [imgSrc, setImgSrc] = useState(image);
   return (
     <motion.div 
       className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden h-full flex flex-col"
@@ -14,18 +17,24 @@ const ProjectCard = ({ project }) => {
       }}
       transition={{ duration: 0.3 }}
     >
-      <div className="relative overflow-hidden h-48">
+      <Link to={`/projects/${computedSlug}`} className="relative overflow-hidden h-48 block">
         <motion.img 
-          src={image} 
+          src={imgSrc} 
           alt={title} 
           className="w-full h-full object-cover" 
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.5 }}
+          loading="lazy"
+          decoding="async"
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          onError={() => setImgSrc('./assets/icons/portfolio.png')}
         />
-      </div>
+      </Link>
       
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <Link to={`/projects/${computedSlug}`} className="hover:underline">
+          <h3 className="text-xl font-bold mb-2">{title}</h3>
+        </Link>
         <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{description}</p>
         
         {technologies && technologies.length > 0 && (
