@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from './ThemeProvider';
 import { motion } from "framer-motion";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { isDark, setIsDark } = useTheme();
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const isScrollingDown = currentY > lastScrollY;
+      const threshold = 80;
+
+      if (currentY > threshold && isScrollingDown) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+
+      setLastScrollY(currentY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const handleClick = (e, id) => {
     e.preventDefault();
@@ -22,17 +44,18 @@ export default function Navbar() {
 
   // Animation variants
   const navbarVariants = {
-    hidden: { 
-      y: -100,
-      opacity: 0 
+    hidden: {
+      y: -80,
+      opacity: 0,
+      transition: { duration: 0.25, ease: "easeInOut" }
     },
-    visible: { 
+    visible: {
       y: 0,
       opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
-        damping: 15,
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 18,
         delay: 0.1
       }
     }
@@ -65,31 +88,48 @@ export default function Navbar() {
     }
   };
 
+  const ThemeIcon = () => (
+    <span className="relative inline-flex h-4 w-4 items-center justify-center align-middle">
+      <FiSun
+        className={`absolute h-4 w-4 text-amber-400 drop-shadow-sm transition-all ${
+          isDark ? "opacity-0 scale-75 -rotate-45" : "opacity-100 scale-100 rotate-0"
+        }`}
+      />
+      <FiMoon
+        className={`absolute h-4 w-4 text-slate-200 transition-all ${
+          isDark ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-75 rotate-45"
+        }`}
+      />
+    </span>
+  );
+
   return (
-    <motion.nav 
-      className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 shadow-sm"
+    <motion.nav
+      className="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none"
       initial="hidden"
-      animate="visible"
+      animate={isHidden ? "hidden" : "visible"}
       variants={navbarVariants}
     >
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="pointer-events-auto">
+        <div className="mx-auto flex items-center justify-between h-14 px-5 rounded-full bg-white/85 dark:bg-slate-900/85 border border-slate-200/70 dark:border-slate-800/80 shadow-lg backdrop-blur-md max-w-3xl">
           <motion.div 
-            className="flex-shrink-0"
+            className="flex-shrink-0 mr-6"
             variants={logoVariants}
           >
             <a
               href="#home"
               onClick={(e) => handleClick(e, 'home')}
-              className="text-2xl font-bold flex items-center space-x-2 transition-all duration-500"
+              className="text-lg md:text-xl font-semibold flex items-center space-x-2 transition-all duration-500"
             >
-              <span className="text-blue-600">⟨/⟩</span>
-              <span className="text-gray-900 dark:text-white">PerezDev</span>
+              <span className="text-blue-500 text-xl">⟨/⟩</span>
+              <span className="text-gray-900 dark:text-white hidden sm:inline-block">
+                PerezDev
+              </span>
             </a>
           </motion.div> 
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
+          <div className="hidden md:flex items-center space-x-6 flex-1" role="navigation" aria-label="Main navigation">
             {['home', 'about', 'skills', 'projects'].map((item, i) => (
               <motion.a 
                 key={item}
@@ -119,19 +159,19 @@ export default function Navbar() {
             
             <motion.button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-500"
+              className="p-1.5 rounded-full hover:bg-slate-200/40 dark:hover:bg-slate-700/40 transition-all duration-300"
               aria-label="Toggle theme"
               custom={5}
               variants={linkVariants}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              {isDark ? '☀️' : '🌙'}
+              <ThemeIcon />
             </motion.button>
             
-            <motion.a 
+            <motion.a
               href="mailto:alexperezr456@gmail.com"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-500 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               custom={6}
               variants={linkVariants}
               whileHover={{ scale: 1.05 }}
@@ -142,10 +182,10 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-3">
             <motion.button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-500"
+              className="p-1.5 rounded-full hover:bg-slate-200/40 dark:hover:bg-slate-700/40 transition-all duration-300"
               aria-label="Toggle theme"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -153,10 +193,10 @@ export default function Navbar() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              {isDark ? '☀️' : '🌙'}
+              <ThemeIcon />
             </motion.button>
             
-            <motion.button 
+            <motion.button
               onClick={() => setIsOpen(!isOpen)} 
               className="p-2 text-gray-600 dark:text-gray-300 transition-all duration-500"
               aria-label="Toggle menu"
@@ -176,7 +216,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        <motion.div 
+        <motion.div
           id="mobile-menu"
           className={`md:hidden ${isOpen ? 'block' : 'hidden'} pb-4`}
           initial={{ height: 0, opacity: 0 }}

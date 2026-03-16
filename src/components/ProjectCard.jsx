@@ -8,14 +8,16 @@ const ProjectCard = ({ project }) => {
   const computedSlug = slug || (title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   
   const [imgSrc, setImgSrc] = useState(image);
+  const primaryTech = Array.isArray(technologies) && technologies.length > 0 ? technologies[0] : null;
   return (
-    <motion.div 
-      className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden h-full flex flex-col"
-      whileHover={{ 
-        scale: 1.03,
-        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+    <motion.div
+      className="bg-white/95 dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden h-full flex flex-col border border-slate-100 dark:border-slate-800"
+      whileHover={{
+        scale: 1.02,
+        boxShadow:
+          "0 22px 30px -12px rgba(15,23,42,0.45), 0 10px 18px -10px rgba(15,23,42,0.55)"
       }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
     >
       <Link to={`/projects/${computedSlug}`} className="relative overflow-hidden h-48 block">
         <motion.img 
@@ -32,10 +34,19 @@ const ProjectCard = ({ project }) => {
       </Link>
       
       <div className="p-6 flex flex-col flex-grow">
+        {primaryTech && (
+          <span className="inline-flex items-center px-2.5 py-1 mb-3 text-xs font-semibold uppercase tracking-wide rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/60 dark:text-blue-200">
+            {primaryTech}
+          </span>
+        )}
         <Link to={`/projects/${computedSlug}`} className="hover:underline">
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
+          <h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+            {title}
+          </h3>
         </Link>
-        <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{description}</p>
+        <p className="text-slate-600 dark:text-slate-300 mb-4 flex-grow text-sm md:text-base leading-relaxed">
+          {description}
+        </p>
         
         {technologies && technologies.length > 0 && (
           <div className="mb-4">
@@ -61,24 +72,24 @@ const ProjectCard = ({ project }) => {
           </div>
         )}
         
-        <div className="flex space-x-4 mt-auto">
-          <motion.a 
+        <div className="flex space-x-4 mt-auto pt-2">
+          <motion.a
             href={codeUrl} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex-1 text-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-colors flex-1 text-center text-sm md:text-[0.9rem]"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
           >
             View Code
           </motion.a>
-          <motion.a 
+          <motion.a
             href={liveUrl} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-4 py-2 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-600 hover:text-white transition-colors flex-1 text-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-4 py-2 rounded-full border border-blue-500 text-blue-600 dark:text-blue-300 hover:bg-blue-600 hover:text-white transition-colors flex-1 text-center text-sm md:text-[0.9rem]"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
           >
             View Live
           </motion.a>

@@ -1,6 +1,16 @@
 export const projects = [
   {
     id: 1,
+    slug: "offervia-ai-resume-tailor-platform",
+    title: "Offervia - AI Resume Builder & Job Tailoring Tool",
+    description: "An AI-powered career optimization platform built with Next.js, Supabase, and Stripe. Features include secure authentication, AI-driven resume tailoring, job description analysis, interview coaching, and a personalized dashboard that helps users improve their applications and track career progress with smart automation tools.",
+    image: "./assets/images/Offervia.png",
+    codeUrl: "https://github.com/aperez-999/offervia",
+    liveUrl: "https://www.offervia.app/",
+    technologies: ["Supabase", "SQL", "Next.js", "Stripe", "JWT Authentication", "RESTful API", "Chakra UI", "CRUD Operations", "Database Optimization", "Animations"]
+  },
+  {
+    id: 1,
     slug: "nutriflow-fitness-nutrition-platform",
     title: "NutriFlow - Fitness & Nutrition Platform",
     description: "An advanced fitness and nutrition tracking platform built with the MERN stack. Features include secure user authentication, personalized workout plans, nutrition tracking, and a comprehensive fitness hub with categorized exercise splits using an AI Chatbot for recommendations.",

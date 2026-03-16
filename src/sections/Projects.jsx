@@ -81,26 +81,35 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="py-16 bg-gray-50 dark:bg-gray-800 overflow-hidden scroll-mt-24">
-      <motion.div 
+    <section
+      id="projects"
+      className="py-20 bg-gradient-to-b from-slate-100 via-white to-slate-50 dark:from-slate-950 dark:via-black dark:to-slate-900 text-slate-900 dark:text-white overflow-hidden scroll-mt-24"
+    >
+      <motion.div
         className="max-w-7xl mx-auto px-4"
         ref={sectionRef}
         initial="hidden"
         animate={sectionInView ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <motion.h2 
-          className="text-3xl font-bold text-center mb-8"
+        <motion.p
+          className="text-xs tracking-[0.25em] uppercase text-center text-blue-500 mb-3"
           variants={itemVariants}
         >
-          Projects
+          Selected Work
+        </motion.p>
+        <motion.h2
+          className="text-3xl md:text-4xl font-extrabold text-center mb-4"
+          variants={itemVariants}
+        >
+          Software Projects &amp; Case Studies
         </motion.h2>
-        <motion.p 
-          className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto"
+        <motion.p
+          className="text-center text-slate-600 dark:text-slate-300 mb-10 max-w-3xl mx-auto text-base md:text-lg"
           variants={itemVariants}
         >
-          Here are the projects I've worked on that showcase my skills in web development
-          and problem-solving.
+          A mix of solo and collaborative builds that highlight how I design,
+          develop, and ship real products with modern web technologies.
         </motion.p>
         
         {/* Filter buttons */}
@@ -113,14 +122,22 @@ export default function Projects() {
         </motion.div>
         
         {/* Summary and grid */}
-        <div className="flex items-center justify-between mb-6 text-sm text-gray-600 dark:text-gray-400">
-          <span>Showing {Math.min(visibleProjects, filteredProjects.length)} of {filteredProjects.length} projects</span>
+        <div className="flex items-center justify-between mb-6 text-sm text-slate-600 dark:text-slate-300">
+          <span>
+            Showing {Math.min(visibleProjects, filteredProjects.length)} of{" "}
+            {filteredProjects.length} projects
+          </span>
           {filter !== 'all' && (
-            <button onClick={() => setFilter('all')} className="underline hover:text-blue-600 dark:hover:text-blue-400">Clear filter</button>
+            <button
+              onClick={() => setFilter('all')}
+              className="underline hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              Clear filter
+            </button>
           )}
         </div>
         {/* Projects grid with AnimatePresence for smooth transitions */}
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={gridVariants}
         >
@@ -143,24 +160,29 @@ export default function Projects() {
         {/* Load more button or end message */}
         {filteredProjects.length === 0 ? (
           <motion.div className="text-center mt-12" variants={itemVariants}>
-            <p className="text-gray-600 dark:text-gray-400">No projects match this filter.</p>
+            <p className="text-slate-600 dark:text-slate-300">
+              No projects match this filter.
+            </p>
           </motion.div>
         ) : visibleProjects < filteredProjects.length ? (
-          <motion.div 
+          <motion.div
             className="text-center mt-12"
             variants={itemVariants}
           >
             <motion.button
               onClick={loadMore}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-6 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
             >
               Load More Projects
             </motion.button>
           </motion.div>
         ) : (
-          <motion.p className="text-center mt-12 text-gray-600 dark:text-gray-400" variants={itemVariants}>
+          <motion.p
+            className="text-center mt-12 text-slate-600 dark:text-slate-300"
+            variants={itemVariants}
+          >
             You’ve reached the end.
           </motion.p>
         )}
