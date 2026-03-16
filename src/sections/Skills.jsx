@@ -63,34 +63,43 @@ export default function Skills() {
   };
   
   return (
-    <section id="skills" className="py-16 overflow-hidden scroll-mt-24">
-      <motion.div 
+    <section
+      id="skills"
+      className="py-20 bg-gradient-to-b from-slate-100 via-white to-slate-50 dark:from-slate-950 dark:via-black dark:to-slate-900 text-slate-900 dark:text-white overflow-hidden scroll-mt-24"
+    >
+      <motion.div
         className="max-w-7xl mx-auto px-4"
         ref={sectionRef}
         initial="hidden"
         animate={sectionInView ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <motion.h2 
-          className="text-3xl font-bold text-center mb-8"
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-center mb-4"
           variants={itemVariants}
         >
           My Skills & Expertise
         </motion.h2>
+        <motion.p
+          className="text-center text-slate-600 dark:text-slate-300 mb-10 max-w-2xl mx-auto text-base md:text-lg"
+          variants={itemVariants}
+        >
+          A quick snapshot of the languages, tools, and frameworks I use to design, build, and ship modern web experiences.
+        </motion.p>
         
         {/* Tabs */}
-        <motion.div 
+        <motion.div
           className="flex justify-center mb-12"
           variants={itemVariants}
         >
-          <div className="inline-flex rounded-md shadow-sm" role="group">
+          <div className="inline-flex rounded-full bg-slate-200/70 dark:bg-slate-800/70 p-1 shadow-sm" role="group">
             <motion.button
               type="button"
               onClick={() => setActiveTab('skills')}
-              className={`px-5 py-2.5 text-sm font-medium rounded-l-lg ${
+              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
                 activeTab === 'skills'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -100,10 +109,10 @@ export default function Skills() {
             <motion.button
               type="button"
               onClick={() => setActiveTab('tools')}
-              className={`px-5 py-2.5 text-sm font-medium ${
+              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
                 activeTab === 'tools'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -113,10 +122,10 @@ export default function Skills() {
             <motion.button
               type="button"
               onClick={() => setActiveTab('frameworks')}
-              className={`px-5 py-2.5 text-sm font-medium ${
+              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
                 activeTab === 'frameworks'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -126,10 +135,10 @@ export default function Skills() {
             <motion.button
               type="button"
               onClick={() => setActiveTab('certifications')}
-              className={`px-5 py-2.5 text-sm font-medium rounded-r-lg ${
+              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
                 activeTab === 'certifications'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -143,7 +152,7 @@ export default function Skills() {
         <AnimatePresence mode="wait">
           {/* Skills Tab */}
           {activeTab === 'skills' && (
-            <motion.div 
+            <motion.div
               key="skills"
               className="space-y-8 max-w-3xl mx-auto"
               initial="hidden"
@@ -151,8 +160,8 @@ export default function Skills() {
               exit="exit"
               variants={tabContentVariants}
             >
-              <motion.h3 
-                className="text-2xl font-semibold mb-6 text-center"
+              <motion.h3
+                className="text-2xl font-semibold mb-6 text-center text-slate-900 dark:text-white"
                 variants={itemVariants}
               >
                 Programming Languages
@@ -169,7 +178,7 @@ export default function Skills() {
           
           {/* Tools & Technologies Tab */}
           {activeTab === 'tools' && (
-            <motion.div 
+            <motion.div
               key="tools"
               className="max-w-4xl mx-auto"
               initial="hidden"
@@ -177,17 +186,17 @@ export default function Skills() {
               exit="exit"
               variants={tabContentVariants}
             >
-              <motion.h3 
-                className="text-2xl font-semibold mb-6 text-center"
+              <motion.h3
+                className="text-2xl font-semibold mb-6 text-center text-slate-900 dark:text-white"
                 variants={itemVariants}
               >
                 Tools & Technologies
               </motion.h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {toolsAndTechnologies.map((tool, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                  <motion.div
+                    key={index}
+                    className="p-4 bg-white/80 dark:bg-slate-900/70 rounded-xl shadow-sm hover:shadow-lg transition-shadow"
                     variants={itemVariants}
                     whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
                   >
@@ -200,7 +209,7 @@ export default function Skills() {
           
           {/* Frameworks Tab */}
           {activeTab === 'frameworks' && (
-            <motion.div 
+            <motion.div
               key="frameworks"
               className="max-w-4xl mx-auto"
               initial="hidden"
@@ -208,17 +217,17 @@ export default function Skills() {
               exit="exit"
               variants={tabContentVariants}
             >
-              <motion.h3 
-                className="text-2xl font-semibold mb-6 text-center"
+              <motion.h3
+                className="text-2xl font-semibold mb-6 text-center text-slate-900 dark:text-white"
                 variants={itemVariants}
               >
                 Frameworks & Libraries
               </motion.h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {frameworks.map((framework, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center"
+                  <motion.div
+                    key={index}
+                    className="p-6 bg-white/80 dark:bg-slate-900/70 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center"
                     variants={itemVariants}
                     whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
                   >
