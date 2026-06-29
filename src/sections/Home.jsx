@@ -101,8 +101,6 @@ export default function Home() {
               </motion.a>
               <motion.a 
                 href={personalInfo.resume} 
-                target="_blank" 
-                rel="noopener noreferrer"
                 className="px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

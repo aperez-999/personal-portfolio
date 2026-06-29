@@ -12,7 +12,7 @@ export const personalInfo = {
   github: "https://github.com/aperez-999",
   linkedin: "https://linkedin.com/in/alejandroperezrivero", 
   twitter: "https://twitter.com/aperez_999", 
-  resume: "/resume",
+  resume: "./resume",
   profileImage: "./assets/images/profile-pic.jpg",
   aboutMe: `I am a passionate and dedicated Computer Science student at Florida International University, 
   with a strong focus on web development and software engineering. My journey in programming began with 
