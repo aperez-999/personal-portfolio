@@ -1,15 +1,17 @@
 export const projects = [
   {
     id: 1,
+    slug: "nutriflow-fitness-nutrition-platform",
     title: "NutriFlow - Fitness & Nutrition Platform",
-    description: "An advanced fitness and nutrition tracking platform built with the MERN stack. Features include secure user authentication, personalized workout plans, nutrition tracking, and a comprehensive fitness hub with categorized exercise splits.",
+    description: "An advanced fitness and nutrition tracking platform built with the MERN stack. Features include secure user authentication, personalized workout plans, nutrition tracking, and a comprehensive fitness hub with categorized exercise splits using an AI Chatbot for recommendations.",
     image: "./assets/images/NutriFlow.png",
     codeUrl: "https://github.com/aperez-999/nutriflow",
-    liveUrl: "https://nutriflow.onrender.com/",
+    liveUrl: "https://nutriflowdev.vercel.app/",
     technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT Authentication", "RESTful API", "Chakra UI", "Redux", "CRUD Operations", "Database Optimization", "Animations"]
   },
   {
     id: 2,
+    slug: "trusted-health-rates",
     title: "Trusted Health Rates - Insurance Platform",
     description: "A full-stack health insurance platform that provides personalized insurance quotes, secure user authentication, and real-time notifications. Features an intuitive dashboard for managing policies and claims with optimized performance and responsive design.",
     image: "./assets/images/Health Insurance Website.png",
@@ -19,6 +21,7 @@ export const projects = [
   },
   {
     id: 3,
+    slug: "perezdev-production-store",
     title: "PerezDev's Production Store",
     description: "A full-stack e-commerce production showcase platform built with the MERN stack. Features include comprehensive product management with full CRUD functionality, optimized database queries for improved performance, and a modern responsive UI for enhanced user experience.",
     image: "./assets/images/Production Store.png",
@@ -28,6 +31,7 @@ export const projects = [
   },
   {
     id: 4,
+    slug: "interactive-todo-app",
     title: "Interactive To-Do App",
     description: "Built using HTML, CSS, JavaScript, and React this To-Do app stores its list inside local storage and allows users to add, delete, and mark tasks as completed with advanced transitions and animations for user enjoyment.",
     image: "./assets/images/Todo App.png",
@@ -37,6 +41,7 @@ export const projects = [
   },
   {
     id: 5,
+    slug: "random-quote-generator",
     title: "Random Quote Generator",
     description: "Built using ReactJS and CSS, this quote generator generates random quotes from an API server on the click of a button and also makes users tweet the quote if needed, with clean and formatted UI.",
     image: "./assets/images/RandomQuoteGen.png",
@@ -46,6 +51,7 @@ export const projects = [
   },
   {
     id: 6,
+    slug: "calorie-logger-workout-app",
     title: "Responsive Calorie Logger and Workout App",
     description: "Built using HTML, CSS, JavaScript, and ReactJS this calorie and workout logger keeps track of daily calorie intake, exercise sessions, and provides a summary based on the users inputs with friendly UI.",
     image: "./assets/images/Caloric App.png",
@@ -55,6 +61,7 @@ export const projects = [
   },
   {
     id: 7,
+    slug: "interactive-calculator-app",
     title: "Interactive Calculator App",
     description: "Built using HTML, CSS, and JavaScript, this calculator app supports basic arithmetic operations (+, -, *, /) and also includes a memory feature for storing and recalling previous calculations.",
     image: "./assets/images/calculator-app.png",
@@ -64,6 +71,7 @@ export const projects = [
   },
   {
     id: 8,
+    slug: "responsive-weather-app",
     title: "Responsive Weather App",
     description: "Built using HTML, CSS, and JavaScript, this weather app provides real-time weather updates for any city by fetching a weather API.",
     image: "./assets/images/weather-app.png",

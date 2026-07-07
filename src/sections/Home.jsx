@@ -1,46 +1,48 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Socials from "../components/Socials";
 import { personalInfo } from '../data/personalInfo';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   // Animation variants
+  const shouldReduceMotion = useReducedMotion();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
+        delayChildren: shouldReduceMotion ? 0 : 0.3,
+        staggerChildren: shouldReduceMotion ? 0 : 0.2
       }
     }
   };
   
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: shouldReduceMotion ? 0 : 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }
     }
   };
 
   const imageVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
+    hidden: { scale: shouldReduceMotion ? 1 : 0.8, opacity: 0 },
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { duration: 0.7, ease: "easeOut" }
+      transition: { duration: shouldReduceMotion ? 0 : 0.7, ease: "easeOut" }
     },
     hover: {
-      scale: 1.05,
+      scale: shouldReduceMotion ? 1 : 1.05,
       boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-      transition: { duration: 0.3 }
+      transition: { duration: shouldReduceMotion ? 0 : 0.3 }
     }
   };
 
   return (
-    <section id="home" className="pt-28 pb-16 overflow-hidden">
+    <section id="home" className="pt-28 pb-16 overflow-hidden scroll-mt-24">
       <motion.div 
         className="max-w-7xl mx-auto px-4"
         initial="hidden"
@@ -93,20 +95,20 @@ export default function Home() {
             >
               <motion.a 
                 href="#skills" 
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Work With Me
               </motion.a>
-              <motion.a 
-                href={personalInfo.resume} 
-                className="px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                See my Resume
-              </motion.a>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link 
+                  to="/resume"
+                  className="px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white transition-colors inline-block"
+                >
+                  See my Resume
+                </Link>
+              </motion.div>
             </motion.div>
             
             <motion.div 

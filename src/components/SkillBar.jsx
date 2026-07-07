@@ -10,7 +10,7 @@ const SkillBar = ({ name, proficiency }) => {
       </div>
       <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
         <div 
-          className="h-full bg-blue-600 rounded-full transition-all duration-1000 ease-out"
+          className="h-full bg-blue-600 rounded-full transition-all duration-1000 ease-out motion-reduce:transition-none"
           style={{ width: `${proficiency}%` }}
         ></div>
       </div>

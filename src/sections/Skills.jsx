@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import SkillBar from '../components/SkillBar';
 import { programmingSkills, toolsAndTechnologies, frameworks, certifications } from '../data/skills';
@@ -13,27 +13,28 @@ export default function Skills() {
     threshold: 0.1,
   });
   
+  const shouldReduceMotion = useReducedMotion();
   // Animation variants
   const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.6, 
+        duration: shouldReduceMotion ? 0 : 0.6, 
         ease: "easeOut",
         when: "beforeChildren",
-        staggerChildren: 0.1
+        staggerChildren: shouldReduceMotion ? 0 : 0.1
       }
     }
   };
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }
     }
   };
   
@@ -62,7 +63,7 @@ export default function Skills() {
   };
   
   return (
-    <section id="skills" className="py-16 overflow-hidden">
+    <section id="skills" className="py-16 overflow-hidden scroll-mt-24">
       <motion.div 
         className="max-w-7xl mx-auto px-4"
         ref={sectionRef}
@@ -266,16 +267,6 @@ export default function Skills() {
                         <h4 className="font-medium text-lg">{cert.name}</h4>
                         <p className="text-gray-600 dark:text-gray-400">{cert.issuer} • {cert.date}</p>
                       </div>
-                      <motion.a 
-                        href={cert.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        View
-                      </motion.a>
                     </div>
                   </motion.div>
                 ))}

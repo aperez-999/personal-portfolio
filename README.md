@@ -18,11 +18,15 @@ A modern, responsive portfolio website built with React.js and Tailwind CSS.
 
 ## 📂 Project Structure
 
-The project follows a modular structure for easy maintenance:
+The project uses React Router v7 Data Router, lazy-loaded routes, and a shared layout:
 
 ```
 src/
-├── components/         # Reusable UI components
+├── app/
+│   ├── layout/
+│   │   └── RootLayout.jsx         # Shared layout with Navbar/Footer/ScrollRestoration
+│   └── router.jsx                 # createHashRouter + RouterProvider
+├── components/                    # Reusable UI components
 │   ├── Footer.jsx
 │   ├── Navbar.jsx
 │   ├── ProjectCard.jsx
@@ -30,18 +34,24 @@ src/
 │   ├── SkillBar.jsx
 │   ├── Socials.jsx
 │   └── ThemeProvider.jsx
-├── data/               # Data files for content
+├── data/                          # Data files for content
 │   ├── personalInfo.js
 │   ├── projects.js
 │   └── skills.js
-├── sections/           # Main page sections
+├── pages/                         # Route components
+│   ├── AboutPage.jsx
+│   ├── HomePage.jsx
+│   ├── NotFound.jsx
+│   ├── ProjectDetail.jsx
+│   ├── ProjectsPage.jsx
+│   └── SkillsPage.jsx
+├── sections/                      # Page sections used on Home and pages
 │   ├── AboutMe.jsx
 │   ├── Home.jsx
 │   ├── Projects.jsx
 │   ├── Resume.jsx
 │   └── Skills.jsx
-├── App.jsx             # Main application component
-└── index.js            # Entry point
+└── index.jsx                      # Entry point
 ```
 
 

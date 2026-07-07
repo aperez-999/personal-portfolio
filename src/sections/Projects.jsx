@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ProjectCard from '../components/ProjectCard';
 import ProjectFilter from '../components/ProjectFilter';
@@ -30,27 +30,29 @@ export default function Projects() {
     setVisibleProjects(prev => Math.min(prev + 3, filteredProjects.length));
   };
 
+  // Respect reduced motion preference
+  const shouldReduceMotion = useReducedMotion();
   // Animation variants
   const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.6, 
+        duration: shouldReduceMotion ? 0 : 0.6, 
         ease: "easeOut",
         when: "beforeChildren",
-        staggerChildren: 0.1
+        staggerChildren: shouldReduceMotion ? 0 : 0.1
       }
     }
   };
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }
     }
   };
   
@@ -65,21 +67,21 @@ export default function Projects() {
   };
   
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }
     },
     exit: { 
       opacity: 0, 
-      y: -20,
-      transition: { duration: 0.3 }
+      y: shouldReduceMotion ? 0 : -20,
+      transition: { duration: shouldReduceMotion ? 0 : 0.3 }
     }
   };
 
   return (
-    <section id="projects" className="py-16 bg-gray-50 dark:bg-gray-800 overflow-hidden">
+    <section id="projects" className="py-16 bg-gray-50 dark:bg-gray-800 overflow-hidden scroll-mt-24">
       <motion.div 
         className="max-w-7xl mx-auto px-4"
         ref={sectionRef}
@@ -110,6 +112,13 @@ export default function Projects() {
           />
         </motion.div>
         
+        {/* Summary and grid */}
+        <div className="flex items-center justify-between mb-6 text-sm text-gray-600 dark:text-gray-400">
+          <span>Showing {Math.min(visibleProjects, filteredProjects.length)} of {filteredProjects.length} projects</span>
+          {filter !== 'all' && (
+            <button onClick={() => setFilter('all')} className="underline hover:text-blue-600 dark:hover:text-blue-400">Clear filter</button>
+          )}
+        </div>
         {/* Projects grid with AnimatePresence for smooth transitions */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -131,21 +140,29 @@ export default function Projects() {
           </AnimatePresence>
         </motion.div>
         
-        {/* Load more button */}
-        {visibleProjects < filteredProjects.length && (
+        {/* Load more button or end message */}
+        {filteredProjects.length === 0 ? (
+          <motion.div className="text-center mt-12" variants={itemVariants}>
+            <p className="text-gray-600 dark:text-gray-400">No projects match this filter.</p>
+          </motion.div>
+        ) : visibleProjects < filteredProjects.length ? (
           <motion.div 
             className="text-center mt-12"
             variants={itemVariants}
           >
             <motion.button
               onClick={loadMore}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Load More Projects
             </motion.button>
           </motion.div>
+        ) : (
+          <motion.p className="text-center mt-12 text-gray-600 dark:text-gray-400" variants={itemVariants}>
+            You’ve reached the end.
+          </motion.p>
         )}
       </motion.div>
     </section>

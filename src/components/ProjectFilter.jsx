@@ -32,6 +32,7 @@ const ProjectFilter = ({ technologies, activeFilter, setFilter }) => {
     >
       <motion.button
         onClick={() => setFilter('all')}
+        aria-pressed={activeFilter === 'all'}
         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
           activeFilter === 'all'
             ? 'bg-blue-600 text-white'
@@ -48,6 +49,7 @@ const ProjectFilter = ({ technologies, activeFilter, setFilter }) => {
         <motion.button
           key={tech}
           onClick={() => setFilter(tech)}
+          aria-pressed={activeFilter === tech}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             activeFilter === tech
               ? 'bg-blue-600 text-white'
