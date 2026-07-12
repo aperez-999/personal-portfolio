@@ -30,7 +30,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="container-p py-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2.5">
-          <span className="grid place-items-center h-8 w-8 rounded-lg border border-brass/60 text-brass font-serif text-base">P</span>
+          <img src="./assets/images/perezdev-mark.png" alt="PerezDev" className="h-8 w-8 rounded-lg ring-1 ring-brass/40" />
           <span className="font-serif text-lg">Perez<span className="text-brass">Dev</span></span>
         </div>
 

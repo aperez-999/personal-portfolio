@@ -33,6 +33,10 @@ const Resume = () => {
           </Block>
 
           <Block title="Experience">
+            <Entry title="Royal Caribbean Group — IT Shipboard Engineering Intern" meta="Summer 2026 · Incoming" sub="Miami, FL"
+              bullets={[
+                'Incoming summer 2026 internship on the IT shipboard engineering team.',
+              ]} />
             <Entry title="Boats Group — Software Developer Intern" meta="Jun 2025 – Aug 2025" sub="Miami, FL"
               bullets={[
                 'Shipped 10+ production features in Listings Editor using React, TypeScript, Node.js, and Tailwind CSS.',

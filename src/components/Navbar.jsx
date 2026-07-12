@@ -16,12 +16,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const isHome = location.pathname === "/";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // On subpages the top of the page is light, so the translucent bar would
+  // hide its light-colored links — keep it solid there (and once scrolled).
+  const solid = scrolled || !isHome;
 
   const goToSection = (e, id) => {
     e.preventDefault();
@@ -36,7 +42,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
+        solid
           ? "bg-espresso-950/90 backdrop-blur-md border-b border-espresso-50/10"
           : "bg-transparent border-b border-transparent"
       }`}
@@ -49,9 +55,11 @@ export default function Navbar() {
           className="flex items-center gap-2.5 group"
           aria-label="PerezDev home"
         >
-          <span className="grid place-items-center h-9 w-9 rounded-lg border border-brass/60 text-brass font-serif font-semibold text-lg leading-none group-hover:bg-brass group-hover:text-espresso-950 transition-colors">
-            P
-          </span>
+          <img
+            src="./assets/images/perezdev-mark.png"
+            alt="PerezDev"
+            className="h-9 w-9 rounded-lg ring-1 ring-brass/40 group-hover:ring-brass transition-all"
+          />
           <span className="text-espresso-50 font-serif text-lg tracking-tight">
             Perez<span className="text-brass">Dev</span>
           </span>

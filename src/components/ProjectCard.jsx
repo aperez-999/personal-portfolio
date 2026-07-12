@@ -4,10 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { HiCodeBracket, HiArrowUpRight } from 'react-icons/hi2';
 import { HiStar } from 'react-icons/hi';
-
-function initials(title) {
-  return title.replace(/[^a-zA-Z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-}
+import ProjectPlaceholder from './ProjectPlaceholder';
 
 const ProjectCard = ({ project }) => {
   const { title, description, image, codeUrl, liveUrl, technologies = [], slug, featured } = project;
@@ -24,12 +21,7 @@ const ProjectCard = ({ project }) => {
       {/* Media */}
       <Link to={`/projects/${computedSlug}`} className="relative block h-52 overflow-hidden bg-espresso-900">
         {broken ? (
-          <div className="w-full h-full grid place-items-center bg-gradient-to-br from-espresso-800 to-espresso-950">
-            <span className="font-serif text-5xl text-brass-light/90">{initials(title)}</span>
-            <span className="absolute bottom-3 left-4 text-xs font-mono uppercase tracking-widest text-espresso-100/50">
-              {primary}
-            </span>
-          </div>
+          <ProjectPlaceholder primary={primary} />
         ) : (
           <img
             src={image}

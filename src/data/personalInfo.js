@@ -18,6 +18,14 @@ export const personalInfo = {
   profileImage: "./assets/images/Headshot.JPG",
   experience: [
     {
+      company: "Royal Caribbean Group",
+      role: "IT Shipboard Engineering Intern",
+      period: "Summer 2026",
+      location: "Miami, FL",
+      upcoming: true,
+      highlights: []
+    },
+    {
       company: "Boats Group",
       role: "Software Developer Intern",
       period: "Summer 2025",
@@ -30,13 +38,6 @@ export const personalInfo = {
         "Leveraged AWS S3 for asset delivery, reducing image-load latency by 20%",
         "Collaborated in Agile sprints — Jira tickets, GitHub PRs, QA workflows, and full-stack integration"
       ]
-    },
-    {
-      company: "Royal Caribbean Group",
-      role: "IT Shipboard Engineering Intern",
-      period: "2024",
-      location: "Miami, FL",
-      highlights: []
     }
   ],
   aboutMe: `I'm a Full-Stack & AI Software Engineer currently studying Computer Science at FIU Honors College in Miami, FL. I'm passionate about building production-ready SaaS platforms that combine intelligent AI systems with clean, scalable architecture.
