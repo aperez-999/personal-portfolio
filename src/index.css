@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-espresso-50 text-espresso-900 font-sans antialiased;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif text-espresso-950;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    @apply bg-brass/30 text-espresso-950;
+  }
+}
+
+@layer components {
+  .container-p {
+    @apply max-w-6xl mx-auto px-5 sm:px-8;
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-brass-dark;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2;
+  }
+  .btn-primary {
+    @apply btn bg-espresso-900 text-espresso-50 hover:bg-espresso-800 shadow-soft;
+  }
+  .btn-accent {
+    @apply btn bg-brass text-espresso-950 hover:bg-brass-dark hover:text-espresso-50;
+  }
+  .btn-outline {
+    @apply btn border border-espresso-300 text-espresso-800 hover:border-espresso-900 hover:bg-espresso-900 hover:text-espresso-50;
+  }
+  .btn-ghost-light {
+    @apply btn border border-espresso-50/25 text-espresso-50 hover:bg-espresso-50/10;
+  }
+
+  /* Card */
+  .card {
+    @apply rounded-2xl bg-white border border-espresso-100 shadow-soft transition-all duration-300;
+  }
+
+  /* Chip / tag */
+  .chip {
+    @apply inline-flex items-center rounded-full border border-espresso-200 bg-espresso-50 px-3 py-1 text-xs font-medium text-espresso-700;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .section-y { @apply py-20 sm:py-28; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: #EDE1CD; }
+::-webkit-scrollbar-thumb { background: #856A47; border-radius: 999px; border: 3px solid #EDE1CD; }
+::-webkit-scrollbar-thumb:hover { background: #6B5238; }
