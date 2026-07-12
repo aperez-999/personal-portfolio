@@ -1,163 +1,115 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { personalInfo } from '../data/personalInfo';
+import { HiOutlineLocationMarker, HiOutlineAcademicCap, HiOutlineBriefcase } from 'react-icons/hi';
+
+const paragraphs = personalInfo.aboutMe.split('\n\n').map((p) => p.trim()).filter(Boolean);
+
+const facts = [
+  { icon: HiOutlineLocationMarker, label: 'Based in', value: personalInfo.location },
+  { icon: HiOutlineAcademicCap, label: 'Studying', value: `${personalInfo.education.degree}, ${personalInfo.education.graduationYear}` },
+  { icon: HiOutlineBriefcase, label: 'Currently', value: 'Founder @ Offervia' },
+];
 
 export default function About() {
-  // Split the about me text into paragraphs
-  const aboutMeParagraphs = personalInfo.aboutMe.split('\n\n').filter(p => p.trim() !== '');
-  
-  // Set up intersection observer hooks for different elements
-  const [titleRef, titleInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
-  const [imageRef, imageInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-  
-  const [contentRef, contentInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
-  const shouldReduceMotion = useReducedMotion();
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: "easeOut" }
-    }
-  };
-  
-  const imageAnimation = {
-    hidden: {
-      opacity: 0,
-      scale: shouldReduceMotion ? 1 : 0.9,
-      y: shouldReduceMotion ? 0 : 20
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: 'easeOut' }
-    }
-  };
-  
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.2
-      }
-    }
-  };
-  
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
+
   return (
-    <section
-      id="about"
-      className="py-20 bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-black dark:to-slate-950 text-slate-900 dark:text-white overflow-hidden scroll-mt-24"
-    >
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.h2
-          ref={titleRef}
-          initial="hidden"
-          animate={titleInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          className="text-3xl md:text-4xl font-bold text-center mb-4"
+    <section id="about" className="section-y bg-espresso-50 scroll-mt-20" ref={ref}>
+      <div className="container-p">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl"
         >
-          About Me
-        </motion.h2>
-        <motion.p
-          className="text-center text-slate-600 dark:text-slate-300 mb-12 max-w-2xl mx-auto text-base md:text-lg"
-          variants={fadeIn}
-        >
-          A quick look at who I am, how I work, and what I care about beyond the code.
-        </motion.p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <p className="eyebrow"><span className="h-px w-8 bg-brass/50" />About me</p>
+          <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">
+            Engineer, builder, and lifelong learner.
+          </h2>
+        </motion.div>
+
+        <div className="mt-14 grid lg:grid-cols-12 gap-12">
+          {/* Left: photo + facts */}
           <motion.div
-            ref={imageRef}
-            initial="hidden"
-            animate={imageInView ? "visible" : "hidden"}
-            variants={imageAnimation}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-5"
           >
-            <motion.div
-              className="relative w-56 h-56 md:w-64 md:h-64 mx-auto"
-              variants={imageAnimation}
-            >
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-blue-500 via-blue-400 to-sky-500 opacity-60 blur-xl" />
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl">
-                <motion.img
+            <div className="relative">
+              <div className="overflow-hidden rounded-2xl border border-espresso-200 shadow-card">
+                <img
                   src="./assets/images/about-me.jpg"
-                  alt="About Me"
-                  width={400}
-                  height={400}
+                  alt={personalInfo.name}
+                  className="w-full h-80 object-cover"
                   loading="lazy"
-                  decoding="async"
-                  sizes="(min-width: 768px) 400px, 80vw"
-                  className="w-full h-full object-cover"
                 />
               </div>
-            </motion.div>
+              <div className="absolute -bottom-5 -right-4 hidden sm:block rounded-xl bg-espresso-900 text-espresso-50 px-5 py-4 shadow-lift">
+                <p className="font-serif text-2xl text-brass-light">Miami, FL</p>
+                <p className="text-xs uppercase tracking-wider text-espresso-100/60">Home base</p>
+              </div>
+            </div>
+
+            <dl className="mt-10 space-y-4">
+              {facts.map((f) => (
+                <div key={f.label} className="flex items-start gap-4">
+                  <span className="grid place-items-center h-10 w-10 rounded-lg bg-white border border-espresso-100 text-brass-dark shrink-0">
+                    <f.icon size={20} />
+                  </span>
+                  <div>
+                    <dt className="text-xs uppercase tracking-wider text-espresso-500">{f.label}</dt>
+                    <dd className="text-espresso-900 font-medium">{f.value}</dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
           </motion.div>
-          
+
+          {/* Right: story + experience */}
           <motion.div
-            className="space-y-6"
-            ref={contentRef}
-            initial="hidden"
-            animate={contentInView ? "visible" : "hidden"}
-            variants={staggerContainer}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-7"
           >
-            <motion.div variants={fadeIn}>
-              <h3 className="text-2xl font-semibold mb-3 text-slate-900 dark:text-white">
-                Introduction
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                {aboutMeParagraphs[0]}
-              </p>
-            </motion.div>
-            
-            {aboutMeParagraphs.length > 1 && (
-              <motion.div variants={fadeIn}>
-                <h3 className="text-2xl font-semibold mb-3 text-slate-900 dark:text-white">
-                  My Passion
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {aboutMeParagraphs[1]}
-                </p>
-              </motion.div>
-            )}
-            
-            {aboutMeParagraphs.length > 2 && (
-              <motion.div variants={fadeIn}>
-                <h3 className="text-2xl font-semibold mb-3 text-slate-900 dark:text-white">
-                  Beyond Coding
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {aboutMeParagraphs[2]}
-                </p>
-              </motion.div>
-            )}
-            
-            <motion.div
-              className="pt-4"
-              variants={fadeIn}
-            >
-              <motion.a
-                href="#projects"
-                className="px-6 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-colors inline-flex items-center gap-2"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                View My Work
-              </motion.a>
-            </motion.div>
+            <div className="space-y-5 text-espresso-700 leading-relaxed text-lg">
+              {paragraphs.slice(0, 3).map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+
+            {/* Experience timeline */}
+            <h3 className="mt-12 mb-6 text-2xl font-semibold">Experience</h3>
+            <ol className="relative border-l border-espresso-200 pl-8 space-y-8">
+              {personalInfo.experience.map((exp) => (
+                <li key={exp.company} className="relative">
+                  <span className="absolute -left-[38px] top-1.5 h-3.5 w-3.5 rounded-full bg-brass border-4 border-espresso-50" />
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                    <h4 className="font-serif text-xl text-espresso-950">{exp.role}</h4>
+                    <span className="text-sm text-espresso-500">{exp.period}</span>
+                  </div>
+                  <p className="text-brass-dark font-medium">{exp.company} · {exp.location}</p>
+                  {exp.highlights?.length > 0 && (
+                    <ul className="mt-3 space-y-1.5 text-espresso-700 text-[0.95rem]">
+                      {exp.highlights.slice(0, 3).map((h, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="text-brass mt-1.5 h-1 w-1 rounded-full bg-brass shrink-0" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-10">
+              <a href="#projects" className="btn-primary">See what I've built</a>
+            </div>
           </motion.div>
         </div>
       </div>

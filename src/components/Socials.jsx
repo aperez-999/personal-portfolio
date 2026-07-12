@@ -1,36 +1,34 @@
 import React from 'react';
 import { personalInfo } from '../data/personalInfo';
 
-export default function Socials() {
+// tone: "light" for dark backgrounds, "dark" for light backgrounds
+export default function Socials({ tone = 'dark', className = '' }) {
+  const base =
+    tone === 'light'
+      ? 'text-espresso-100/70 hover:text-brass'
+      : 'text-espresso-500 hover:text-brass-dark';
+
+  const links = [
+    personalInfo.linkedin && { href: personalInfo.linkedin, icon: 'ri-linkedin-fill', label: 'LinkedIn' },
+    personalInfo.github && { href: personalInfo.github, icon: 'ri-github-fill', label: 'GitHub' },
+    personalInfo.website && { href: personalInfo.website, icon: 'ri-global-line', label: 'Website' },
+    personalInfo.email && { href: `mailto:${personalInfo.email}`, icon: 'ri-mail-fill', label: 'Email' },
+  ].filter(Boolean);
+
   return (
-    <div className="flex space-x-4">
-      {/* Twitter Icon */}
-      {personalInfo.twitter && (
-        <a href={personalInfo.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-          <i className="ri-twitter-fill text-slate-500 dark:text-slate-300 hover:text-blue-500 dark:hover:text-blue-400 text-2xl transition-colors"></i>
+    <div className={`flex items-center gap-5 ${className}`}>
+      {links.map((l) => (
+        <a
+          key={l.label}
+          href={l.href}
+          target={l.href.startsWith('mailto') ? undefined : '_blank'}
+          rel="noopener noreferrer"
+          aria-label={l.label}
+          className={`${base} transition-colors`}
+        >
+          <i className={`${l.icon} text-xl`}></i>
         </a>
-      )}
-      
-      {/* LinkedIn Icon */}
-      {personalInfo.linkedin && (
-        <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <i className="ri-linkedin-fill text-slate-500 dark:text-slate-300 hover:text-blue-500 dark:hover:text-blue-400 text-2xl transition-colors"></i>
-        </a>
-      )}
-      
-      {/* GitHub Icon */}
-      {personalInfo.github && (
-        <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <i className="ri-github-fill text-slate-500 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-2xl transition-colors"></i>
-        </a>
-      )}
-      
-      {/* Email */}
-      {personalInfo.email && (
-        <a href={`mailto:${personalInfo.email}`} aria-label="Email">
-          <i className="ri-mail-fill text-slate-500 dark:text-slate-300 hover:text-blue-400 dark:hover:text-blue-300 text-2xl transition-colors"></i>
-        </a>
-      )}
+      ))}
     </div>
   );
 }
