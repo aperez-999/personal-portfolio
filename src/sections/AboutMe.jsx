@@ -89,7 +89,14 @@ export default function About() {
                 <li key={exp.company} className="relative">
                   <span className="absolute -left-[38px] top-1.5 h-3.5 w-3.5 rounded-full bg-brass border-4 border-espresso-50" />
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                    <h4 className="font-serif text-xl text-espresso-950">{exp.role}</h4>
+                    <h4 className="font-serif text-xl text-espresso-950">
+                      {exp.role}
+                      {exp.upcoming && (
+                        <span className="ml-2 align-middle inline-flex items-center rounded-full bg-brass/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brass-dark">
+                          Incoming
+                        </span>
+                      )}
+                    </h4>
                     <span className="text-sm text-espresso-500">{exp.period}</span>
                   </div>
                   <p className="text-brass-dark font-medium">{exp.company} · {exp.location}</p>

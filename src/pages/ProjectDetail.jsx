@@ -2,15 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { HiArrowUpRight, HiArrowLeft, HiCodeBracket } from 'react-icons/hi2';
 import { projects } from '../data/projects';
+import ProjectPlaceholder from '../components/ProjectPlaceholder';
 
 function findProjectBySlug(slug) {
   return projects.find(
     (p) => (p.slug || (p.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-')) === slug
   );
-}
-
-function initials(title = '') {
-  return title.replace(/[^a-zA-Z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
 }
 
 function Section({ title, children }) {
@@ -72,9 +69,7 @@ export default function ProjectDetail() {
         {/* Hero image */}
         <div className="rounded-2xl overflow-hidden border border-espresso-200 shadow-card bg-espresso-900 aspect-[16/9]">
           {broken ? (
-            <div className="w-full h-full grid place-items-center bg-gradient-to-br from-espresso-800 to-espresso-950">
-              <span className="font-serif text-7xl text-brass-light/90">{initials(title)}</span>
-            </div>
+            <ProjectPlaceholder primary={technologies[0]} size="lg" />
           ) : (
             <img src={image} alt={title} className="w-full h-full object-cover" onError={() => setBroken(true)} />
           )}
