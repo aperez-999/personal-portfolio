@@ -4,8 +4,9 @@ import { useInView } from 'react-intersection-observer';
 import {
   SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiRedux,
   SiVite, SiSpringboot, SiShadcnui, SiMongodb, SiPostgresql, SiSupabase,
-  SiOpenai, SiTypescript, SiJavascript, SiPython, SiCplusplus,
+  SiOpenai, SiTypescript, SiJavascript, SiPython, SiCplusplus, SiMysql, SiHtml5,
 } from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
 import { HiOutlineSparkles } from 'react-icons/hi';
 import SkillBar from '../components/SkillBar';
 import { programmingSkills, toolsAndTechnologies, frameworks, aiTechnologies, certifications } from '../data/skills';
@@ -24,7 +25,16 @@ const tabs = [
   { id: 'certs', label: 'Certifications' },
 ];
 
-const langIcon = { 'TypeScript': SiTypescript, 'JavaScript': SiJavascript, 'React.js': SiReact, 'Python': SiPython, 'C++': SiCplusplus };
+const langIcon = {
+  'TypeScript': SiTypescript,
+  'JavaScript': SiJavascript,
+  'React.js': SiReact,
+  'Python': SiPython,
+  'Java': FaJava,
+  'HTML/CSS': SiHtml5,
+  'SQL': SiMysql,
+  'C++': SiCplusplus,
+};
 
 export default function Skills() {
   const [tab, setTab] = useState('languages');

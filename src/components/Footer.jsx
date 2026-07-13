@@ -44,7 +44,7 @@ export default function Footer() {
 
       <div className="container-p pb-8 text-center md:text-left">
         <p className="text-xs text-espresso-100/40">
-          © {year} Alejandro Perez-Rivero · Built with React, Tailwind CSS & Framer Motion · Miami, FL
+          © {year} Alejandro Perez-Rivero · Miami, FL
         </p>
       </div>
     </footer>

@@ -7,7 +7,7 @@ import { HiArrowDown } from 'react-icons/hi';
 const stat = (value, label) => ({ value, label });
 const stats = [
   stat('3+', 'Years building'),
-  stat('12+', 'Shipped projects'),
+  stat('11+', 'Shipped projects'),
   stat('1', 'SaaS founded'),
 ];
 

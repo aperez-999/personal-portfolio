@@ -5,7 +5,6 @@ export const projects = [
     title: "Offervia v2.2 - Enterprise-Grade AI Career Platform",
     description: "Production-hardened AI career suite delivering intelligent document generation, interview simulation, and ATS optimization with premium UX. Features comprehensive UI/UX transformation with interactive self-driving demos, multi-modal AI pipelines for real-time interview coaching, context-aware cover letter generation with PDF export, ATS keyword scanning, and per-application workspace management. Implements production-hardened CSP, 26 optimized Row-Level Security policies, Stripe-gated Pro tier with usage metering, and full-stack Sentry error tracking.",
     image: "./assets/images/Offervia.png",
-    codeUrl: "https://github.com/aperez-999/offervia",
     liveUrl: "https://www.offervia.app/",
     technologies: ["Next.js 15", "TypeScript", "Supabase", "PostgreSQL", "Stripe", "Groq API", "Sentry", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Playwright", "Nodemailer"],
     featured: true,
@@ -29,17 +28,6 @@ export const projects = [
   },
   {
     id: 3,
-    slug: "fitness-wellness-tracker-capstone",
-    title: "Fitness & Wellness Tracker - University Capstone",
-    description: "Comprehensive fitness and wellness tracking platform built as a CIS 3950 capstone project. Features workout planning, nutrition tracking, progress analytics, and personalized health insights. Built with modern full-stack architecture emphasizing scalability, clean code, and user-centered design.",
-    image: "./assets/images/FitnessTracker.png",
-    codeUrl: "https://github.com/aperez-999/fitness-wellness-tracker",
-    liveUrl: null,
-    technologies: ["React", "Vite", "Express", "Node.js", "Tailwind CSS", "RESTful API"],
-    featured: false
-  },
-  {
-    id: 4,
     slug: "nutriflow-ai-fitness-platform",
     title: "NutriFlow - AI Fitness & Nutrition Platform",
     description: "AI-driven health system focusing on structural optimization of workout plans and calorie ingestion analysis. Deployed scalable MERN architecture incorporating hardened JWT state handling and protected operational layers. Features contextual AI microservices allowing high-speed personalized routine iteration based on individual metrics, with dashboard telemetry speeds boosted by 40% through precise query tuning and local caching policies.",
@@ -50,12 +38,22 @@ export const projects = [
     featured: true
   },
   {
+    id: 4,
+    slug: "fitness-wellness-tracker-capstone",
+    title: "Fitness & Wellness Tracker - University Capstone (In Progress)",
+    description: "Comprehensive fitness and wellness tracking platform built as a CIS 3950 capstone project. Features workout planning, nutrition tracking, progress analytics, and personalized health insights. Built with modern full-stack architecture emphasizing scalability, clean code, and user-centered design.",
+    image: "./assets/images/FitnessTracker.png",
+    codeUrl: "https://github.com/aperez-999/fitness-wellness-tracker",
+    liveUrl: null,
+    technologies: ["React", "Vite", "Express", "Node.js", "Tailwind CSS", "RESTful API"],
+    featured: false
+  },
+  {
     id: 5,
     slug: "corazones-vivos-nonprofit",
     title: "Corazones Vivos Inc. - Nonprofit Outreach Platform",
     description: "Open-access non-profit hub managing regional resource coordination, community engagement, and event logistics. Architected full-stack deployment pipeline with DNS configuration, multi-environment Vercel CI/CD workflows, and SEO optimization achieving top-tier crawl indexing. Designed accessible, semantically structured layouts maximizing organizational reach and community impact.",
     image: "./assets/images/CorazonesVivos.png",
-    codeUrl: "https://github.com/aperez-999/corazonesvivos-app",
     liveUrl: "https://corazonesvivos.org",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "SEO", "Vercel", "i18n"],
     featured: false
@@ -72,16 +70,6 @@ export const projects = [
   },
   {
     id: 7,
-    slug: "perezdev-production-store",
-    title: "PerezDev's Production Store",
-    description: "A full-stack e-commerce production showcase platform built with the MERN stack. Features comprehensive product management with full CRUD functionality, optimized database queries for improved performance, and a modern responsive UI for enhanced user experience.",
-    image: "./assets/images/Production Store.png",
-    codeUrl: "https://github.com/aperez-999/production-store",
-    liveUrl: "https://production-store.onrender.com/",
-    technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "Tailwind CSS", "RESTful API", "CRUD Operations"]
-  },
-  {
-    id: 8,
     slug: "interactive-todo-app",
     title: "Interactive To-Do App",
     description: "Built using HTML, CSS, JavaScript, and React this To-Do app stores its list inside local storage and allows users to add, delete, and mark tasks as completed with advanced transitions and animations for user enjoyment.",
@@ -91,17 +79,16 @@ export const projects = [
     technologies: ["React", "CSS", "JavaScript", "Local Storage"]
   },
   {
-    id: 9,
+    id: 8,
     slug: "random-quote-generator",
     title: "Random Quote Generator",
     description: "Built using ReactJS and CSS, this quote generator generates random quotes from an API server on the click of a button and also makes users tweet the quote if needed, with clean and formatted UI.",
     image: "./assets/images/RandomQuoteGen.png",
-    codeUrl: "https://github.com/aperez-999/random-quote-app",
     liveUrl: "https://aperez-999.github.io/random-quote-app/",
     technologies: ["React", "CSS", "API Integration", "Twitter Integration"]
   },
   {
-    id: 10,
+    id: 9,
     slug: "calorie-logger-workout-app",
     title: "Responsive Calorie Logger and Workout App",
     description: "Built using HTML, CSS, JavaScript, and ReactJS this calorie and workout logger keeps track of daily calorie intake, exercise sessions, and provides a summary based on the users inputs with friendly UI.",
@@ -111,7 +98,7 @@ export const projects = [
     technologies: ["React", "TailwindCSS", "JavaScript", "Local Storage"]
   },
   {
-    id: 11,
+    id: 10,
     slug: "interactive-calculator-app",
     title: "Interactive Calculator App",
     description: "Built using HTML, CSS, and JavaScript, this calculator app supports basic arithmetic operations (+, -, *, /) and also includes a memory feature for storing and recalling previous calculations.",
@@ -121,12 +108,11 @@ export const projects = [
     technologies: ["HTML", "CSS", "JavaScript"]
   },
   {
-    id: 12,
+    id: 11,
     slug: "responsive-weather-app",
     title: "Responsive Weather App",
     description: "Built using HTML, CSS, and JavaScript, this weather app provides real-time weather updates for any city by fetching a weather API.",
     image: "./assets/images/weather-app.png",
-    codeUrl: "https://github.com/aperez-999/weather-app",
     liveUrl: "https://aperez-999.github.io/weather-app/",
     technologies: ["HTML", "CSS", "JavaScript", "Weather API"]
   },
