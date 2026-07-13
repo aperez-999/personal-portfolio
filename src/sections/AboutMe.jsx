@@ -9,7 +9,7 @@ const paragraphs = personalInfo.aboutMe.split('\n\n').map((p) => p.trim()).filte
 const facts = [
   { icon: HiOutlineLocationMarker, label: 'Based in', value: personalInfo.location },
   { icon: HiOutlineAcademicCap, label: 'Studying', value: `${personalInfo.education.degree}, ${personalInfo.education.graduationYear}` },
-  { icon: HiOutlineBriefcase, label: 'Currently', value: 'Founder @ Offervia' },
+  { icon: HiOutlineBriefcase, label: 'Currently', value: 'IT Shipboard Eng. Intern @ Royal Carribean' },
 ];
 
 export default function About() {

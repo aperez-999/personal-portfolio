@@ -18,11 +18,22 @@ export const personalInfo = {
   profileImage: "./assets/images/Headshot.JPG",
   experience: [
     {
+      company: "Offervia - AI Career Suite Platform (Owner)",
+      role: "Full Stack & AI Developer",
+      period: "Fall 2025 - Present",
+      location: "Miami, FL",
+      highlights: [
+        "Launched v2.2 including new features such as AI interview coaching, cover letter/PDF export, ATS scanning, resume tailoring, workspace management",
+        "Next.js 15, TypeScript, Supabase, Stripe, Groq API, Sentry tracking",
+        "Security audit: optimized 26 RLS policies, zero database violations, hardened CSP",
+        "Interactive demos, dark mode, accessibility-compliant UI"
+      ]
+    },
+    {
       company: "Royal Caribbean Group",
       role: "IT Shipboard Engineering Intern",
       period: "Summer 2026",
-      location: "Miami, FL",
-      upcoming: true,
+      location: "Miramar, FL",
       highlights: []
     },
     {
@@ -42,7 +53,7 @@ export const personalInfo = {
   ],
   aboutMe: `I'm a Full-Stack & AI Software Engineer currently studying Computer Science at FIU Honors College in Miami, FL. I'm passionate about building production-ready SaaS platforms that combine intelligent AI systems with clean, scalable architecture.
 
-  Currently, I'm the founder of Offervia, an enterprise-grade AI career platform that helps job seekers optimize their applications through intelligent document generation, interview simulation, and ATS optimization. I've also worked as a Software Developer Intern at Boats Group, where I shipped 10+ production features and led analytics infrastructure development.
+  Currently, I am a IT Shipboard Engineering Intern for Royal Carribean and also the founder of Offervia, an enterprise-grade AI career platform that helps job seekers optimize their applications through intelligent document generation, interview simulation, and ATS optimization. I've also worked as a Software Developer Intern at Boats Group, where I shipped 10+ production features and led analytics infrastructure development.
 
   My technical focus spans modern web development with Next.js and React, AI/LLM orchestration, and building robust full-stack systems. I'm experienced in TypeScript, Python, Java, and specialize in creating high-performance applications with technologies like Supabase, MongoDB, and cloud infrastructure.
 
