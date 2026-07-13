@@ -1,66 +1,94 @@
 export const projects = [
   {
     id: 1,
-    slug: "offervia-ai-resume-tailor-platform",
-    title: "Offervia - AI Resume Builder & Job Tailoring Tool",
-    description: "An AI-powered career optimization platform built with Next.js, Supabase, and Stripe. Features include secure authentication, AI-driven resume tailoring, job description analysis, interview coaching, and a personalized dashboard that helps users improve their applications and track career progress with smart automation tools.",
+    slug: "offervia-ai-career-platform",
+    title: "Offervia v2.2 - Enterprise-Grade AI Career Platform",
+    description: "Production-hardened AI career suite delivering intelligent document generation, interview simulation, and ATS optimization with premium UX. Features comprehensive UI/UX transformation with interactive self-driving demos, multi-modal AI pipelines for real-time interview coaching, context-aware cover letter generation with PDF export, ATS keyword scanning, and per-application workspace management. Implements production-hardened CSP, 26 optimized Row-Level Security policies, Stripe-gated Pro tier with usage metering, and full-stack Sentry error tracking.",
     image: "./assets/images/Offervia.png",
-    codeUrl: "https://github.com/aperez-999/offervia",
     liveUrl: "https://www.offervia.app/",
-    technologies: ["Supabase", "SQL", "Next.js", "Stripe", "JWT Authentication", "RESTful API", "Chakra UI", "CRUD Operations", "Database Optimization", "Animations"]
-  },
-  {
-    id: 1,
-    slug: "nutriflow-fitness-nutrition-platform",
-    title: "NutriFlow - Fitness & Nutrition Platform",
-    description: "An advanced fitness and nutrition tracking platform built with the MERN stack. Features include secure user authentication, personalized workout plans, nutrition tracking, and a comprehensive fitness hub with categorized exercise splits using an AI Chatbot for recommendations.",
-    image: "./assets/images/NutriFlow.png",
-    codeUrl: "https://github.com/aperez-999/nutriflow",
-    liveUrl: "https://nutriflowdev.vercel.app/",
-    technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT Authentication", "RESTful API", "Chakra UI", "Redux", "CRUD Operations", "Database Optimization", "Animations"]
+    technologies: ["Next.js 15", "TypeScript", "Supabase", "PostgreSQL", "Stripe", "Groq API", "Sentry", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Playwright", "Nodemailer"],
+    featured: true,
+    highlights: [
+      "Premium AI pipelines for resume tailoring, interview coaching, and cover letter generation",
+      "Production-hardened security with CSP, 26 RLS policies, and zero advisor violations",
+      "Stripe subscription infrastructure with usage metering and feature flags",
+      "100% TypeScript coverage with comprehensive E2E test suites"
+    ]
   },
   {
     id: 2,
+    slug: "perezdev-hub-ai-workflow",
+    title: "PerezDev Hub - AI Coding Workflow Terminal",
+    description: "An animated terminal hub for AI coding workflows that generates custom agent skills, manages MCP servers, and prompts local models across multiple AI coding tools. Scans projects to generate tailored agents and installs them across Claude Code, Cursor, Copilot, Codex, Cline, Windsurf, and Roo Code. Features an OpenDev-style fullscreen TUI, talks to local Ollama models with transparent cloud fallback, and operates entirely on your machine.",
+    image: "./assets/images/PerezDevHub.png",
+    codeUrl: "https://github.com/aperez-999/perezdev-hub",
+    liveUrl: null,
+    technologies: ["Node.js", "TypeScript", "Ollama", "MCP Servers", "TUI", "AI Orchestration", "Agent Workflows"],
+    featured: true
+  },
+  {
+    id: 3,
+    slug: "nutriflow-ai-fitness-platform",
+    title: "NutriFlow - AI Fitness & Nutrition Platform",
+    description: "AI-driven health system focusing on structural optimization of workout plans and calorie ingestion analysis. Deployed scalable MERN architecture incorporating hardened JWT state handling and protected operational layers. Features contextual AI microservices allowing high-speed personalized routine iteration based on individual metrics, with dashboard telemetry speeds boosted by 40% through precise query tuning and local caching policies.",
+    image: "./assets/images/NutriFlow.png",
+    codeUrl: "https://github.com/aperez-999/nutriflow",
+    liveUrl: "https://nutriflowdev.vercel.app/",
+    technologies: ["React", "Node.js", "Express", "MongoDB", "JWT", "Groq API", "RESTful API", "Redux"],
+    featured: true
+  },
+  {
+    id: 4,
+    slug: "fitness-wellness-tracker-capstone",
+    title: "Fitness & Wellness Tracker - University Capstone (In Progress)",
+    description: "Comprehensive fitness and wellness tracking platform built as a CIS 3950 capstone project. Features workout planning, nutrition tracking, progress analytics, and personalized health insights. Built with modern full-stack architecture emphasizing scalability, clean code, and user-centered design.",
+    image: "./assets/images/FitnessTracker.png",
+    codeUrl: "https://github.com/aperez-999/fitness-wellness-tracker",
+    liveUrl: null,
+    technologies: ["React", "Vite", "Express", "Node.js", "Tailwind CSS", "RESTful API"],
+    featured: false
+  },
+  {
+    id: 5,
+    slug: "corazones-vivos-nonprofit",
+    title: "Corazones Vivos Inc. - Nonprofit Outreach Platform",
+    description: "Open-access non-profit hub managing regional resource coordination, community engagement, and event logistics. Architected full-stack deployment pipeline with DNS configuration, multi-environment Vercel CI/CD workflows, and SEO optimization achieving top-tier crawl indexing. Designed accessible, semantically structured layouts maximizing organizational reach and community impact.",
+    image: "./assets/images/CorazonesVivos.png",
+    liveUrl: "https://corazonesvivos.org",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "SEO", "Vercel", "i18n"],
+    featured: false
+  },
+  {
+    id: 6,
     slug: "trusted-health-rates",
     title: "Trusted Health Rates - Insurance Platform",
     description: "A full-stack health insurance platform that provides personalized insurance quotes, secure user authentication, and real-time notifications. Features an intuitive dashboard for managing policies and claims with optimized performance and responsive design.",
     image: "./assets/images/Health Insurance Website.png",
     codeUrl: "https://github.com/aperez-999/health-insurance-app",
     liveUrl: "https://aperez-999.github.io/health-insurance-app/",
-    technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "EmailJS", "JWT Authentication", "RESTful API", "Animations"]
+    technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "EmailJS", "JWT Authentication", "RESTful API"]
   },
   {
-    id: 3,
-    slug: "perezdev-production-store",
-    title: "PerezDev's Production Store",
-    description: "A full-stack e-commerce production showcase platform built with the MERN stack. Features include comprehensive product management with full CRUD functionality, optimized database queries for improved performance, and a modern responsive UI for enhanced user experience.",
-    image: "./assets/images/Production Store.png",
-    codeUrl: "https://github.com/aperez-999/production-store",
-    liveUrl: "https://production-store.onrender.com/",
-    technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "Tailwind CSS", "RESTful API", "CRUD Operations", "Database Optimization"]
-  },
-  {
-    id: 4,
+    id: 7,
     slug: "interactive-todo-app",
     title: "Interactive To-Do App",
     description: "Built using HTML, CSS, JavaScript, and React this To-Do app stores its list inside local storage and allows users to add, delete, and mark tasks as completed with advanced transitions and animations for user enjoyment.",
     image: "./assets/images/Todo App.png",
     codeUrl: "https://github.com/aperez-999/todo-app",
     liveUrl: "https://aperez-999.github.io/todo-app/",
-    technologies: ["React", "CSS", "JavaScript", "Local Storage", "Animations"]
+    technologies: ["React", "CSS", "JavaScript", "Local Storage"]
   },
   {
-    id: 5,
+    id: 8,
     slug: "random-quote-generator",
     title: "Random Quote Generator",
     description: "Built using ReactJS and CSS, this quote generator generates random quotes from an API server on the click of a button and also makes users tweet the quote if needed, with clean and formatted UI.",
     image: "./assets/images/RandomQuoteGen.png",
-    codeUrl: "https://github.com/aperez-999/random-quote-app",
     liveUrl: "https://aperez-999.github.io/random-quote-app/",
-    technologies: ["React", "CSS", "API Integration", "Twitter Integration", "Animations"]
+    technologies: ["React", "CSS", "API Integration", "Twitter Integration"]
   },
   {
-    id: 6,
+    id: 9,
     slug: "calorie-logger-workout-app",
     title: "Responsive Calorie Logger and Workout App",
     description: "Built using HTML, CSS, JavaScript, and ReactJS this calorie and workout logger keeps track of daily calorie intake, exercise sessions, and provides a summary based on the users inputs with friendly UI.",
@@ -70,22 +98,21 @@ export const projects = [
     technologies: ["React", "TailwindCSS", "JavaScript", "Local Storage"]
   },
   {
-    id: 7,
+    id: 10,
     slug: "interactive-calculator-app",
     title: "Interactive Calculator App",
     description: "Built using HTML, CSS, and JavaScript, this calculator app supports basic arithmetic operations (+, -, *, /) and also includes a memory feature for storing and recalling previous calculations.",
     image: "./assets/images/calculator-app.png",
     codeUrl: "https://github.com/aperez-999/calculator-app",
     liveUrl: "https://aperez-999.github.io/calculator-app/",
-    technologies: ["HTML", "CSS", "JavaScript", "Math Operations"]
+    technologies: ["HTML", "CSS", "JavaScript"]
   },
   {
-    id: 8,
+    id: 11,
     slug: "responsive-weather-app",
     title: "Responsive Weather App",
     description: "Built using HTML, CSS, and JavaScript, this weather app provides real-time weather updates for any city by fetching a weather API.",
     image: "./assets/images/weather-app.png",
-    codeUrl: "https://github.com/aperez-999/weather-app",
     liveUrl: "https://aperez-999.github.io/weather-app/",
     technologies: ["HTML", "CSS", "JavaScript", "Weather API"]
   },

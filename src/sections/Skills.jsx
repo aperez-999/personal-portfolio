@@ -1,289 +1,157 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import {
+  SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiRedux,
+  SiVite, SiSpringboot, SiShadcnui, SiMongodb, SiPostgresql, SiSupabase,
+  SiOpenai, SiTypescript, SiJavascript, SiPython, SiCplusplus, SiMysql, SiHtml5,
+} from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
+import { HiOutlineSparkles } from 'react-icons/hi';
 import SkillBar from '../components/SkillBar';
-import { programmingSkills, toolsAndTechnologies, frameworks, certifications } from '../data/skills';
+import { programmingSkills, toolsAndTechnologies, frameworks, aiTechnologies, certifications } from '../data/skills';
+
+const iconMap = {
+  react: SiReact, nextjs: SiNextdotjs, nodejs: SiNodedotjs, express: SiExpress,
+  tailwind: SiTailwindcss, redux: SiRedux, vite: SiVite, spring: SiSpringboot,
+  shadcn: SiShadcnui, mongodb: SiMongodb, postgresql: SiPostgresql, supabase: SiSupabase,
+  openai: SiOpenai,
+};
+
+const tabs = [
+  { id: 'languages', label: 'Languages' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'toolbox', label: 'Toolbox' },
+  { id: 'certs', label: 'Certifications' },
+];
+
+const langIcon = {
+  'TypeScript': SiTypescript,
+  'JavaScript': SiJavascript,
+  'React.js': SiReact,
+  'Python': SiPython,
+  'Java': FaJava,
+  'HTML/CSS': SiHtml5,
+  'SQL': SiMysql,
+  'C++': SiCplusplus,
+};
 
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState('skills');
-  
-  // Set up intersection observer hooks
-  const [sectionRef, sectionInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
-  const shouldReduceMotion = useReducedMotion();
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: shouldReduceMotion ? 0 : 0.6, 
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: shouldReduceMotion ? 0 : 0.1
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }
-    }
-  };
-  
-  const tabContentVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        duration: 0.5, 
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: 0.1
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      x: -20,
-      transition: { duration: 0.3 }
-    }
-  };
-  
-  // Function to get icon path based on framework name
-  const getIconPath = (iconName) => {
-    return `./assets/icons/${iconName}.svg`;
-  };
-  
+  const [tab, setTab] = useState('languages');
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  const stack = [...frameworks, ...aiTechnologies];
+
   return (
-    <section
-      id="skills"
-      className="py-20 bg-gradient-to-b from-slate-100 via-white to-slate-50 dark:from-slate-950 dark:via-black dark:to-slate-900 text-slate-900 dark:text-white overflow-hidden scroll-mt-24"
-    >
-      <motion.div
-        className="max-w-7xl mx-auto px-4"
-        ref={sectionRef}
-        initial="hidden"
-        animate={sectionInView ? "visible" : "hidden"}
-        variants={containerVariants}
-      >
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold text-center mb-4"
-          variants={itemVariants}
-        >
-          My Skills & Expertise
-        </motion.h2>
-        <motion.p
-          className="text-center text-slate-600 dark:text-slate-300 mb-10 max-w-2xl mx-auto text-base md:text-lg"
-          variants={itemVariants}
-        >
-          A quick snapshot of the languages, tools, and frameworks I use to design, build, and ship modern web experiences.
-        </motion.p>
-        
-        {/* Tabs */}
+    <section id="skills" className="section-y bg-espresso-100/60 scroll-mt-20" ref={ref}>
+      <div className="container-p">
         <motion.div
-          className="flex justify-center mb-12"
-          variants={itemVariants}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl"
         >
-          <div className="inline-flex rounded-full bg-slate-200/70 dark:bg-slate-800/70 p-1 shadow-sm" role="group">
-            <motion.button
-              type="button"
-              onClick={() => setActiveTab('skills')}
-              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
-                activeTab === 'skills'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Skills
-            </motion.button>
-            <motion.button
-              type="button"
-              onClick={() => setActiveTab('tools')}
-              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
-                activeTab === 'tools'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Tools & Tech
-            </motion.button>
-            <motion.button
-              type="button"
-              onClick={() => setActiveTab('frameworks')}
-              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
-                activeTab === 'frameworks'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Frameworks
-            </motion.button>
-            <motion.button
-              type="button"
-              onClick={() => setActiveTab('certifications')}
-              className={`px-5 py-2.5 text-sm font-medium rounded-full ${
-                activeTab === 'certifications'
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Certifications
-            </motion.button>
-          </div>
+          <p className="eyebrow"><span className="h-px w-8 bg-brass/50" />Skills & expertise</p>
+          <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">The tools behind the work.</h2>
+          <p className="mt-4 text-espresso-600 text-lg">
+            Languages, frameworks, and platforms I use to design, build, and ship production software.
+          </p>
         </motion.div>
-        
-        {/* Tab Content with AnimatePresence for smooth transitions */}
-        <AnimatePresence mode="wait">
-          {/* Skills Tab */}
-          {activeTab === 'skills' && (
-            <motion.div
-              key="skills"
-              className="space-y-8 max-w-3xl mx-auto"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
+
+        {/* Tabs */}
+        <div className="mt-10 flex flex-wrap gap-2 border-b border-espresso-200">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`relative px-4 py-3 text-sm font-medium transition-colors ${
+                tab === t.id ? 'text-espresso-950' : 'text-espresso-500 hover:text-espresso-800'
+              }`}
             >
-              <motion.h3
-                className="text-2xl font-semibold mb-6 text-center text-slate-900 dark:text-white"
-                variants={itemVariants}
+              {t.label}
+              {tab === t.id && (
+                <motion.span layoutId="tab-underline" className="absolute inset-x-0 -bottom-px h-0.5 bg-brass" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-10 min-h-[18rem]">
+          <AnimatePresence mode="wait">
+            {tab === 'languages' && (
+              <motion.div
+                key="languages"
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.35 }}
+                className="grid md:grid-cols-2 gap-x-12 gap-y-7 max-w-4xl"
               >
-                Programming Languages
-              </motion.h3>
-              <div className="space-y-6">
-                {programmingSkills.map((skill, index) => (
-                  <motion.div key={index} variants={itemVariants}>
-                    <SkillBar name={skill.name} proficiency={skill.proficiency} />
-                  </motion.div>
+                {programmingSkills.map((s) => (
+                  <div key={s.name} className="flex items-center gap-4">
+                    {langIcon[s.name] && React.createElement(langIcon[s.name], { className: 'text-espresso-400 shrink-0', size: 22 })}
+                    <div className="flex-1"><SkillBar name={s.name} proficiency={s.proficiency} /></div>
+                  </div>
                 ))}
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Tools & Technologies Tab */}
-          {activeTab === 'tools' && (
-            <motion.div
-              key="tools"
-              className="max-w-4xl mx-auto"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
-            >
-              <motion.h3
-                className="text-2xl font-semibold mb-6 text-center text-slate-900 dark:text-white"
-                variants={itemVariants}
+              </motion.div>
+            )}
+
+            {tab === 'stack' && (
+              <motion.div
+                key="stack"
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.35 }}
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
               >
-                Tools & Technologies
-              </motion.h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {toolsAndTechnologies.map((tool, index) => (
-                  <motion.div
-                    key={index}
-                    className="p-4 bg-white/80 dark:bg-slate-900/70 rounded-xl shadow-sm hover:shadow-lg transition-shadow"
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
-                  >
-                    <h4 className="font-medium text-center">{tool}</h4>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Frameworks Tab */}
-          {activeTab === 'frameworks' && (
-            <motion.div
-              key="frameworks"
-              className="max-w-4xl mx-auto"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
-            >
-              <motion.h3
-                className="text-2xl font-semibold mb-6 text-center text-slate-900 dark:text-white"
-                variants={itemVariants}
-              >
-                Frameworks & Libraries
-              </motion.h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {frameworks.map((framework, index) => (
-                  <motion.div
-                    key={index}
-                    className="p-6 bg-white/80 dark:bg-slate-900/70 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center"
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
-                  >
-                    <div className="mb-3 flex justify-center">
-                      <motion.img 
-                        src={getIconPath(framework.icon)} 
-                        alt={framework.name} 
-                        className="h-12 w-12"
-                        whileHover={{ rotate: 10, scale: 1.1 }}
-                        transition={{ duration: 0.3 }}
-                      />
+                {stack.map((f) => {
+                  const Icon = iconMap[f.icon] || HiOutlineSparkles;
+                  return (
+                    <div
+                      key={f.name}
+                      className="group card p-5 flex items-center gap-3 hover:-translate-y-1 hover:shadow-card hover:border-brass/40"
+                    >
+                      <Icon size={26} className="text-espresso-500 group-hover:text-brass-dark transition-colors shrink-0" />
+                      <span className="font-medium text-espresso-800 text-sm">{f.name}</span>
                     </div>
-                    <h4 className="font-medium">{framework.name}</h4>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-          
-          {/* Certifications Tab */}
-          {activeTab === 'certifications' && (
-            <motion.div 
-              key="certifications"
-              className="max-w-4xl mx-auto"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
-            >
-              <motion.h3 
-                className="text-2xl font-semibold mb-6 text-center"
-                variants={itemVariants}
+                  );
+                })}
+              </motion.div>
+            )}
+
+            {tab === 'toolbox' && (
+              <motion.div
+                key="toolbox"
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.35 }}
+                className="flex flex-wrap gap-2.5"
               >
-                Certifications & Courses
-              </motion.h3>
-              <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h4 className="font-medium text-lg">{cert.name}</h4>
-                        <p className="text-gray-600 dark:text-gray-400">{cert.issuer} • {cert.date}</p>
-                      </div>
-                    </div>
-                  </motion.div>
+                {toolsAndTechnologies.map((tool) => (
+                  <span key={tool} className="chip hover:border-brass/50 hover:bg-white transition-colors cursor-default">
+                    {tool}
+                  </span>
                 ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+              </motion.div>
+            )}
+
+            {tab === 'certs' && (
+              <motion.div
+                key="certs"
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.35 }}
+                className="grid sm:grid-cols-2 gap-4 max-w-4xl"
+              >
+                {certifications.map((c) => (
+                  <div key={c.name} className="card p-5 flex items-start justify-between gap-4">
+                    <div>
+                      <h4 className="font-serif text-lg text-espresso-950">{c.name}</h4>
+                      <p className="text-sm text-espresso-500 mt-1">{c.issuer}</p>
+                    </div>
+                    <span className="chip shrink-0">{c.date}</span>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </section>
   );
 }

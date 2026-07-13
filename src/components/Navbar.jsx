@@ -1,268 +1,147 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useTheme } from './ThemeProvider';
-import { motion } from "framer-motion";
-import { FiSun, FiMoon } from "react-icons/fi";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiOutlineMenuAlt4, HiX } from "react-icons/hi";
+
+const sections = [
+  { name: "Home", id: "home" },
+  { name: "About", id: "about" },
+  { name: "Skills", id: "skills" },
+  { name: "Projects", id: "projects" },
+];
 
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { isDark, setIsDark } = useTheme();
-  const [isHidden, setIsHidden] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      const isScrollingDown = currentY > lastScrollY;
-      const threshold = 80;
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-      if (currentY > threshold && isScrollingDown) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
+  // On subpages the top of the page is light, so the translucent bar would
+  // hide its light-colored links — keep it solid there (and once scrolled).
+  const solid = scrolled || !isHome;
 
-      setLastScrollY(currentY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  const handleClick = (e, id) => {
+  const goToSection = (e, id) => {
     e.preventDefault();
     setIsOpen(false);
-    if (location.pathname !== '/') {
-      navigate('/', { state: { scrollToId: id } });
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollToId: id } });
     } else {
-      const element = document.getElementById(id);
-      element?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  // Animation variants
-  const navbarVariants = {
-    hidden: {
-      y: -80,
-      opacity: 0,
-      transition: { duration: 0.25, ease: "easeInOut" }
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 18,
-        delay: 0.1
-      }
-    }
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: i => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.3 + (i * 0.1),
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    })
-  };
-
-  const logoVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        delay: 0.2,
-        duration: 0.6,
-        type: "spring",
-        stiffness: 200
-      }
-    }
-  };
-
-  const ThemeIcon = () => (
-    <span className="relative inline-flex h-4 w-4 items-center justify-center align-middle">
-      <FiSun
-        className={`absolute h-4 w-4 text-amber-400 drop-shadow-sm transition-all ${
-          isDark ? "opacity-0 scale-75 -rotate-45" : "opacity-100 scale-100 rotate-0"
-        }`}
-      />
-      <FiMoon
-        className={`absolute h-4 w-4 text-slate-200 transition-all ${
-          isDark ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-75 rotate-45"
-        }`}
-      />
-    </span>
-  );
 
   return (
-    <motion.nav
-      className="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none"
-      initial="hidden"
-      animate={isHidden ? "hidden" : "visible"}
-      variants={navbarVariants}
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        solid
+          ? "bg-espresso-950/90 backdrop-blur-md border-b border-espresso-50/10"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
-      <div className="pointer-events-auto">
-        <div className="mx-auto flex items-center justify-between h-14 px-5 rounded-full bg-white/85 dark:bg-slate-900/85 border border-slate-200/70 dark:border-slate-800/80 shadow-lg backdrop-blur-md max-w-3xl">
-          <motion.div 
-            className="flex-shrink-0 mr-6"
-            variants={logoVariants}
-          >
+      <nav className="container-p flex items-center justify-between h-16">
+        {/* Brand */}
+        <a
+          href="#home"
+          onClick={(e) => goToSection(e, "home")}
+          className="flex items-center gap-2.5 group"
+          aria-label="PerezDev home"
+        >
+          <img
+            src="./assets/images/perezdev-mark.png"
+            alt="PerezDev"
+            className="h-9 w-9 rounded-lg ring-1 ring-brass/40 group-hover:ring-brass transition-all"
+          />
+          <span className="text-espresso-50 font-serif text-lg tracking-tight">
+            Perez<span className="text-brass">Dev</span>
+          </span>
+        </a>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-1">
+          {sections.map((s) => (
             <a
-              href="#home"
-              onClick={(e) => handleClick(e, 'home')}
-              className="text-lg md:text-xl font-semibold flex items-center space-x-2 transition-all duration-500"
+              key={s.id}
+              href={`#${s.id}`}
+              onClick={(e) => goToSection(e, s.id)}
+              className="px-3.5 py-2 text-sm text-espresso-100/80 hover:text-espresso-50 transition-colors rounded-full"
             >
-              <span className="text-blue-500 text-xl">⟨/⟩</span>
-              <span className="text-gray-900 dark:text-white hidden sm:inline-block">
-                PerezDev
-              </span>
+              {s.name}
             </a>
-          </motion.div> 
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6 flex-1" role="navigation" aria-label="Main navigation">
-            {['home', 'about', 'skills', 'projects'].map((item, i) => (
-              <motion.a 
-                key={item}
-                href={`#${item}`} 
-                onClick={(e) => handleClick(e, item)}
-                className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
-                custom={i}
-                variants={linkVariants}
-              >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
-              </motion.a>
-            ))}
-            
-            <motion.div custom={4} variants={linkVariants}>
-              {(() => {
-                const resumeClass = ({ isActive }) => (
-                  "transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded " +
-                  (isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400')
-                );
-                return (
-                  <NavLink to="/resume" className={resumeClass}>
-                    Resume
-                  </NavLink>
-                );
-              })()}
-            </motion.div>
-            
-            <motion.button
-              onClick={() => setIsDark(!isDark)}
-              className="p-1.5 rounded-full hover:bg-slate-200/40 dark:hover:bg-slate-700/40 transition-all duration-300"
-              aria-label="Toggle theme"
-              custom={5}
-              variants={linkVariants}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ThemeIcon />
-            </motion.button>
-            
-            <motion.a
-              href="mailto:alexperezr456@gmail.com"
-              className="bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-500 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-              custom={6}
-              variants={linkVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Contact Me
-            </motion.a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-3">
-            <motion.button
-              onClick={() => setIsDark(!isDark)}
-              className="p-1.5 rounded-full hover:bg-slate-200/40 dark:hover:bg-slate-700/40 transition-all duration-300"
-              aria-label="Toggle theme"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ThemeIcon />
-            </motion.button>
-            
-            <motion.button
-              onClick={() => setIsOpen(!isOpen)} 
-              className="p-2 text-gray-600 dark:text-gray-300 transition-all duration-500"
-              aria-label="Toggle menu"
-              aria-expanded={isOpen}
-              aria-controls="mobile-menu"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="w-6 h-0.5 bg-current mb-1"></div>
-              <div className="w-6 h-0.5 bg-current mb-1"></div>
-              <div className="w-6 h-0.5 bg-current"></div>
-            </motion.button>
-          </div>
+          ))}
+          <NavLink
+            to="/resume"
+            className={({ isActive }) =>
+              `px-3.5 py-2 text-sm transition-colors rounded-full ${
+                isActive ? "text-brass" : "text-espresso-100/80 hover:text-espresso-50"
+              }`
+            }
+          >
+            Resume
+          </NavLink>
+          <a href="mailto:alexperezr456@gmail.com" className="btn-accent ml-3 !px-5 !py-2">
+            Get in touch
+          </a>
         </div>
 
-        {/* Mobile Menu */}
-        <motion.div
-          id="mobile-menu"
-          className={`md:hidden ${isOpen ? 'block' : 'hidden'} pb-4`}
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ 
-            height: isOpen ? 'auto' : 0,
-            opacity: isOpen ? 1 : 0
-          }}
-          transition={{ duration: 0.3 }}
+        {/* Mobile toggle */}
+        <button
+          className="md:hidden p-2 rounded-lg text-espresso-50 hover:bg-espresso-50/10 transition-colors"
+          onClick={() => setIsOpen((v) => !v)}
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
-          <div className="space-y-2">
-            {['home', 'about', 'skills', 'projects'].map((item, i) => (
-              <motion.a 
-                key={item}
-                href={`#${item}`} 
-                onClick={(e) => handleClick(e, item)}
-                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.1 + (i * 0.1) }}
-              >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
-              </motion.a>
-            ))}
-            
-            <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <NavLink to="/resume"
+          {isOpen ? <HiX size={22} /> : <HiOutlineMenuAlt4 size={22} />}
+        </button>
+      </nav>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="md:hidden bg-espresso-950/97 backdrop-blur-md border-t border-espresso-50/10"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="container-p py-4 flex flex-col">
+              {sections.map((s) => (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  onClick={(e) => goToSection(e, s.id)}
+                  className="py-3 text-espresso-100/85 hover:text-brass border-b border-espresso-50/5 transition-colors"
+                >
+                  {s.name}
+                </a>
+              ))}
+              <NavLink
+                to="/resume"
                 onClick={() => setIsOpen(false)}
-                className={({ isActive }) => `block py-2 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'}`}>Resume</NavLink>
-            </motion.div>
-            
-            <motion.a 
-              href="mailto:alexperezr456@gmail.com"
-              className="block py-2 text-blue-600 dark:text-blue-400"
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              Contact Me
-            </motion.a>
-          </div>
-        </motion.div>
-      </div>
-    </motion.nav>
+                className="py-3 text-espresso-100/85 hover:text-brass border-b border-espresso-50/5 transition-colors"
+              >
+                Resume
+              </NavLink>
+              <a
+                href="mailto:alexperezr456@gmail.com"
+                className="btn-accent mt-4"
+                onClick={() => setIsOpen(false)}
+              >
+                Get in touch
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

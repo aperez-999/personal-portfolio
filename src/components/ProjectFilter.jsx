@@ -2,74 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
-const ProjectFilter = ({ technologies, activeFilter, setFilter }) => {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05
-      }
-    }
-  };
-  
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.3 }
-    }
-  };
-
+const ProjectFilter = ({ categories, activeFilter, setFilter }) => {
   return (
-    <motion.div
-      className="flex flex-wrap justify-center gap-2 mb-10"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <motion.button
-        onClick={() => setFilter('all')}
-        aria-pressed={activeFilter === 'all'}
-        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-          activeFilter === 'all'
-            ? 'bg-blue-600 text-white shadow-sm'
-            : 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700'
-        }`}
-        variants={buttonVariants}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        All Projects
-      </motion.button>
-      
-      {technologies.map(tech => (
-        <motion.button
-          key={tech}
-          onClick={() => setFilter(tech)}
-          aria-pressed={activeFilter === tech}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            activeFilter === tech
-              ? 'bg-blue-600 text-white shadow-sm'
-              : 'bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700'
-          }`}
-          variants={buttonVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {tech}
-        </motion.button>
-      ))}
-    </motion.div>
+    <div className="flex flex-wrap justify-center gap-2 mb-12">
+      {categories.map((cat) => {
+        const active = activeFilter === cat;
+        return (
+          <motion.button
+            key={cat}
+            onClick={() => setFilter(cat)}
+            aria-pressed={active}
+            whileTap={{ scale: 0.96 }}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+              active
+                ? 'bg-espresso-900 text-espresso-50 border-espresso-900'
+                : 'bg-white text-espresso-700 border-espresso-200 hover:border-espresso-400'
+            }`}
+          >
+            {cat}
+          </motion.button>
+        );
+      })}
+    </div>
   );
 };
 
 ProjectFilter.propTypes = {
-  technologies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeFilter: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired
+  setFilter: PropTypes.func.isRequired,
 };
 
-export default ProjectFilter; 
+export default ProjectFilter;

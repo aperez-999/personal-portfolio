@@ -1,145 +1,158 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import Socials from "../components/Socials";
+import { motion } from 'framer-motion';
+import Socials from '../components/Socials';
 import { personalInfo } from '../data/personalInfo';
-import { Link } from 'react-router-dom';
+import { HiArrowDown } from 'react-icons/hi';
+
+const stat = (value, label) => ({ value, label });
+const stats = [
+  stat('3+', 'Years building'),
+  stat('11+', 'Shipped projects'),
+  stat('1', 'SaaS founded'),
+];
+
+const fade = {
+  hidden: { opacity: 0, y: 18 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.08 * i },
+  }),
+};
 
 export default function Home() {
-  // Animation variants
-  const shouldReduceMotion = useReducedMotion();
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: shouldReduceMotion ? 0 : 0.3,
-        staggerChildren: shouldReduceMotion ? 0 : 0.2
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { y: shouldReduceMotion ? 0 : 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }
-    }
-  };
-
-  const imageVariants = {
-    hidden: { scale: shouldReduceMotion ? 1 : 0.9, opacity: 0, y: shouldReduceMotion ? 0 : 20 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      y: 0,
-      transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: "easeOut" }
-    },
-    hover: shouldReduceMotion
-      ? {}
-      : {
-          scale: 1.03,
-          boxShadow:
-            "0 20px 25px -5px rgba(15, 23, 42, 0.5), 0 10px 10px -5px rgba(15, 23, 42, 0.4)",
-          transition: { duration: 0.25, ease: "easeOut" }
-        }
-  };
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <section
       id="home"
-      className="pt-28 pb-20 overflow-hidden scroll-mt-24 bg-gradient-to-b from-slate-900 via-black to-slate-950 text-white"
+      className="relative overflow-hidden bg-espresso-950 text-espresso-50 scroll-mt-20"
     >
-      <motion.div
-        className="max-w-7xl mx-auto px-4 min-h-[calc(100vh-7rem)] flex items-center"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        <div className="flex flex-col-reverse md:flex-row items-center gap-12 w-full">
-          <div className="w-full md:w-3/5 space-y-6 text-center md:text-left">
-            <motion.p
-              className="text-sm tracking-[0.25em] uppercase text-blue-400"
-              variants={itemVariants}
-            >
-              Software Developer & Problem Solver
-            </motion.p>
-            <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
-              variants={itemVariants}
-            >
-              Hello! I&apos;m{" "}
-              <span className="text-blue-400">{personalInfo.name}</span>
-            </motion.h1>
-            <motion.h2
-              className="text-lg md:text-xl text-slate-300"
-              variants={itemVariants}
-            >
-              {personalInfo.title} • {personalInfo.location}
-            </motion.h2>
-            <motion.p
-              className="text-base md:text-lg text-slate-300/80 max-w-2xl mx-auto md:mx-0"
-              variants={itemVariants}
-            >
-              {personalInfo.shortBio}
-            </motion.p>
-            <motion.p
-              className="text-sm md:text-base text-blue-300 font-medium"
-              variants={itemVariants}
-            >
-              {personalInfo.education.university} •{" "}
-              {personalInfo.education.degree} (
-              {personalInfo.education.graduationYear})
-            </motion.p>
+      {/* Subtle warm ambience — single soft radial, not glowy */}
+      <div
+        className="pointer-events-none absolute -top-40 -right-32 h-[38rem] w-[38rem] rounded-full opacity-40"
+        style={{ background: 'radial-gradient(circle, rgba(176,137,72,0.28) 0%, rgba(176,137,72,0) 60%)' }}
+      />
+      {/* Fine vertical wood-plank lines, very low opacity */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(90deg, #000 0px, #000 1px, transparent 1px, transparent 96px)',
+        }}
+      />
 
-            <motion.div
-              className="flex flex-wrap justify-center md:justify-start gap-4 pt-2"
-              variants={itemVariants}
-            >
-              <motion.a
-                href="mailto:alexperezr456@gmail.com"
-                className="px-6 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Work With Me
-              </motion.a>
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  to="/projects"
-                  className="px-6 py-3 rounded-full border border-blue-400/70 text-blue-300 hover:bg-blue-500/10 hover:border-blue-300 transition-colors inline-flex items-center gap-2"
-                >
-                  <span>View Projects</span>
-                </Link>
-              </motion.div>
-            </motion.div>
+      <div className="container-p relative grid lg:grid-cols-12 gap-12 items-center min-h-screen pt-28 pb-20">
+        {/* Left: copy */}
+        <div className="lg:col-span-7 order-2 lg:order-1">
+          <motion.p variants={fade} initial="hidden" animate="show" custom={0} className="eyebrow text-brass-light">
+            <span className="h-px w-8 bg-brass-light/60" />
+            {personalInfo.tagline}
+          </motion.p>
 
-            <motion.div className="pt-4" variants={itemVariants}>
-              <Socials />
-            </motion.div>
-          </div>
+          <motion.h1
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            custom={1}
+            className="mt-5 font-serif font-semibold leading-[1.02] text-espresso-50 text-5xl sm:text-6xl lg:text-7xl"
+          >
+            Alejandro
+            <br />
+            <span className="text-brass">Perez-Rivero</span>
+          </motion.h1>
+
+          <motion.p
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            custom={2}
+            className="mt-6 text-lg sm:text-xl text-espresso-100/80 max-w-xl"
+          >
+            {personalInfo.title} building{' '}
+            <span className="text-espresso-50">scalable SaaS platforms</span>, AI workflows, and
+            modern web experiences from Miami, FL.
+          </motion.p>
 
           <motion.div
-            className="w-full md:w-2/5 flex justify-center md:justify-end"
-            variants={itemVariants}
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            custom={3}
+            className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <motion.div
-              className="relative"
-              variants={imageVariants}
-              whileHover="hover"
-            >
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-blue-500 via-blue-400 to-sky-500 opacity-60 blur-lg" />
-              <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-slate-900 bg-slate-900 shadow-2xl">
-                <motion.img
-                  src={personalInfo.profileImage}
-                  alt={personalInfo.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
+            <button onClick={() => scrollTo('projects')} className="btn-accent">
+              View my work
+            </button>
+            <a href="mailto:alexperezr456@gmail.com" className="btn-ghost-light">
+              Get in touch
+            </a>
           </motion.div>
+
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            custom={4}
+            className="mt-10 flex items-center gap-8"
+          >
+            <Socials tone="light" />
+            <div className="h-8 w-px bg-espresso-50/15" />
+            <p className="text-sm text-espresso-100/60">
+              {personalInfo.education.degree} · {personalInfo.education.university.replace(' Honors College', '')}
+            </p>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.dl
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            custom={5}
+            className="mt-12 grid grid-cols-3 max-w-lg divide-x divide-espresso-50/10 border-t border-espresso-50/10 pt-6"
+          >
+            {stats.map((s) => (
+              <div key={s.label} className="px-2 first:pl-0">
+                <dt className="font-serif text-3xl text-brass-light">{s.value}</dt>
+                <dd className="mt-1 text-xs uppercase tracking-wider text-espresso-100/55">{s.label}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </div>
-      </motion.div>
+
+        {/* Right: portrait */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          className="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end"
+        >
+          <div className="relative">
+            <div className="absolute -inset-3 rounded-[2rem] border border-brass/25" />
+            <div className="relative w-64 h-80 sm:w-72 sm:h-[26rem] overflow-hidden rounded-[1.75rem] border border-espresso-50/10 shadow-lift">
+              <img
+                src={personalInfo.profileImage}
+                alt={personalInfo.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-espresso-950/70 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-sm">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <span className="text-espresso-50/90">Available for new roles</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll cue */}
+      <button
+        onClick={() => scrollTo('about')}
+        aria-label="Scroll to about"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-espresso-100/50 hover:text-brass transition-colors"
+      >
+        <HiArrowDown className="animate-bounce" size={22} />
+      </button>
     </section>
   );
 }
