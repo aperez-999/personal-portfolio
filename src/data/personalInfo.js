@@ -15,7 +15,7 @@ export const personalInfo = {
   website: "https://alejandroperezrivero.dev",
   portfolio: "https://aperez-999.github.io/personal-portfolio",
   resume: "/resume",
-  profileImage: "./assets/images/Headshot.JPG",
+  profileImage: "./assets/images/Headshot-2026.JPG",
   experience: [
     {
       company: "Offervia - AI Career Suite Platform (Owner)",
