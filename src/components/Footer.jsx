@@ -8,7 +8,7 @@ export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="bg-espresso-950 text-espresso-50">
+    <footer className="bg-espresso-950 text-espresso-50 print:hidden">
       {/* CTA band */}
       <div className="container-p py-16 border-b border-espresso-50/10">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">

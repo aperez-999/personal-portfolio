@@ -9,11 +9,12 @@ const paragraphs = personalInfo.aboutMe.split('\n\n').map((p) => p.trim()).filte
 const facts = [
   { icon: HiOutlineLocationMarker, label: 'Based in', value: personalInfo.location },
   { icon: HiOutlineAcademicCap, label: 'Studying', value: `${personalInfo.education.degree}, ${personalInfo.education.graduationYear}` },
-  { icon: HiOutlineBriefcase, label: 'Currently', value: 'IT Shipboard Eng. Intern @ Royal Carribean' },
+  { icon: HiOutlineBriefcase, label: 'Currently', value: 'Incoming Assoc. SWE @ Royal Caribbean' },
 ];
 
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   return (
     <section id="about" className="section-y bg-espresso-50 scroll-mt-20" ref={ref}>
@@ -47,10 +48,6 @@ export default function About() {
                   className="w-full h-80 object-cover"
                   loading="lazy"
                 />
-              </div>
-              <div className="absolute -bottom-5 -right-4 hidden sm:block rounded-xl bg-espresso-900 text-espresso-50 px-5 py-4 shadow-lift">
-                <p className="font-serif text-2xl text-brass-light">Miami, FL</p>
-                <p className="text-xs uppercase tracking-wider text-espresso-100/60">Home base</p>
               </div>
             </div>
 
@@ -115,7 +112,9 @@ export default function About() {
             </ol>
 
             <div className="mt-10">
-              <a href="#projects" className="btn-primary">See what I've built</a>
+              <button onClick={() => scrollTo('projects')} className="btn-primary">
+                See what I've built
+              </button>
             </div>
           </motion.div>
         </div>

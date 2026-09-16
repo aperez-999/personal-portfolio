@@ -137,8 +137,6 @@ export default function Home() {
               />
               <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-espresso-950/70 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-sm">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-espresso-50/90">Available for new roles</span>
               </div>
             </div>
           </div>

@@ -45,7 +45,7 @@ export default function Projects() {
           <p className="eyebrow justify-center"><span className="h-px w-8 bg-brass/50" />Selected work</p>
           <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">Projects & case studies</h2>
           <p className="mt-4 text-espresso-600 text-lg">
-            A mix of production SaaS, AI tooling, and full-stack builds — from founding products to shipping features.
+            A mix of production SaaS, AI tooling, and full-stack builds from founding products to shipping features.
           </p>
         </motion.div>
 

@@ -36,16 +36,22 @@ function useDocumentTitle() {
 export default function RootLayout() {
   useHashScroll();
   useDocumentTitle();
+
   return (
     <div className="min-h-screen bg-espresso-50 text-espresso-900">
       <Navbar />
       <a
         href="#main-content"
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById('main-content')?.focus();
+          document.getElementById('main-content')?.scrollIntoView({ block: 'start' });
+        }}
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-espresso-900 focus:text-espresso-50 focus:px-4 focus:py-2 focus:rounded-lg"
       >
         Skip to content
       </a>
-      <main id="main-content" role="main">
+      <main id="main-content" role="main" tabIndex={-1}>
         <Outlet />
       </main>
       <Footer />

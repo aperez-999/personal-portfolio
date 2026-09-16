@@ -70,3 +70,13 @@
 ::-webkit-scrollbar-track { background: #EDE1CD; }
 ::-webkit-scrollbar-thumb { background: #856A47; border-radius: 999px; border: 3px solid #EDE1CD; }
 ::-webkit-scrollbar-thumb:hover { background: #6B5238; }
+
+/* Print — used by the Resume page's "Download PDF" (window.print) */
+@media print {
+  @page {
+    margin: 0.4in;
+  }
+  html, body, #root {
+    background: #fff !important;
+  }
+}
