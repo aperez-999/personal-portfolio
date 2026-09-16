@@ -12,8 +12,8 @@ export const personalInfo = {
   email: "alexperezr456@gmail.com",
   github: "https://github.com/aperez-999",
   linkedin: "https://linkedin.com/in/aperezrivero", 
-  website: "https://alejandroperezrivero.dev",
-  portfolio: "https://aperez-999.github.io/personal-portfolio",
+  website: "https://aperez-999.github.io/personal-portfolio/",
+  portfolio: "https://aperez-999.github.io/personal-portfolio/",
   resume: "/resume",
   profileImage: "./assets/images/Headshot-2026.JPG",
   experience: [
