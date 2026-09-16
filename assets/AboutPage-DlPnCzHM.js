@@ -1,1 +1,0 @@
-import{j as t}from"./index-DQq85l7a.js";import{A as o}from"./AboutMe-BIn1czzP.js";import"./index-DU3AXazK.js";function e(){return t.jsx("div",{className:"space-y-8",children:t.jsx(o,{})})}export{e as default};
