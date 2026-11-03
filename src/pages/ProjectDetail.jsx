@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { HiArrowUpRight, HiArrowLeft, HiCodeBracket, HiOutlineStar } from 'react-icons/hi2';
 import { projects } from '../data/projects';
 import ProjectPlaceholder from '../components/ProjectPlaceholder';
+import ProjectPreview from '../components/ProjectPreview';
 
 function findProjectBySlug(slug) {
   return projects.find(
@@ -23,7 +24,7 @@ const fade = {
 function Section({ title, children, i }) {
   if (!children || (Array.isArray(children) && children.length === 0)) return null;
   return (
-    <motion.section variants={fade} initial="hidden" animate="show" custom={i} className="mb-12">
+    <motion.section variants={fade} initial="hidden" animate="show" custom={i} className="mb-10">
       <h2 className="text-xl font-serif font-semibold mb-4 text-espresso-950 flex items-center gap-2">
         <span className="h-1.5 w-1.5 rounded-full bg-brass" />
         {title}
@@ -40,7 +41,6 @@ export default function ProjectDetail() {
 
   useEffect(() => {
     document.title = project?.title ? `${project.title} | Alejandro Perez-Rivero` : 'Project';
-    window.scrollTo(0, 0);
   }, [project]);
 
   if (!project) {
@@ -52,13 +52,13 @@ export default function ProjectDetail() {
     );
   }
 
-  const { title, description, technologies = [], codeUrl, liveUrl, highlights = [], image, featured } = project;
+  const { title, description, technologies = [], codeUrl, liveUrl, highlights = [], image, preview, featured } = project;
   const hasLinks = Boolean(codeUrl || liveUrl);
 
   return (
     <article className="bg-espresso-50">
       {/* Header on espresso */}
-      <header className="relative overflow-hidden bg-espresso-950 text-espresso-50 pt-28 pb-20">
+      <header className="relative overflow-hidden bg-espresso-950 text-espresso-50 pt-28 pb-24">
         <div
           className="pointer-events-none absolute -top-32 -right-24 h-[32rem] w-[32rem] rounded-full opacity-30"
           style={{ background: 'radial-gradient(circle, rgba(176,137,72,0.28) 0%, rgba(176,137,72,0) 60%)' }}
@@ -71,11 +71,11 @@ export default function ProjectDetail() {
           }}
         />
         <div className="container-p relative">
-          <Link to="/projects" className="inline-flex items-center gap-2 text-sm text-espresso-100/70 hover:text-brass-light transition-colors mb-8">
+          <Link to="/projects" className="inline-flex items-center gap-2 text-sm text-espresso-100/70 hover:text-brass-light transition-colors">
             <HiArrowLeft /> All projects
           </Link>
 
-          <div className="flex items-center gap-3 mb-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3 mb-3">
             {technologies[0] && (
               <p className="text-xs font-mono uppercase tracking-widest text-brass-light">{technologies[0]}</p>
             )}
@@ -87,7 +87,7 @@ export default function ProjectDetail() {
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-semibold max-w-3xl leading-tight text-espresso-50">{title}</h1>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex min-h-12 flex-wrap items-center gap-3">
             {liveUrl && (
               <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="btn-accent hover:scale-105 active:scale-95 transition-transform">
                 Visit live site <HiArrowUpRight />
@@ -102,27 +102,29 @@ export default function ProjectDetail() {
         </div>
       </header>
 
-      <div className="container-p -mt-10 pb-24">
-        {/* Hero image */}
+      <div className="container-p -mt-12 pb-24">
+        {/* Hero image — same tuck on every project, whether or not it has links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-2xl overflow-hidden border border-espresso-200 shadow-lift bg-espresso-900 aspect-[16/9] group"
+          className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-espresso-200 bg-espresso-900 shadow-lift"
         >
-          {broken ? (
+          {broken || !image ? (
             <ProjectPlaceholder primary={technologies[0]} size="lg" />
+          ) : preview ? (
+            <ProjectPreview web={preview.web} ios={preview.ios} fallback={image} alt={title} />
           ) : (
             <img
               src={image}
               alt={title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              className="h-full w-full object-cover"
               onError={() => setBroken(true)}
             />
           )}
         </motion.div>
 
-        <div className="mt-14 grid lg:grid-cols-[1fr,320px] gap-x-14 gap-y-10">
+        <div className="mt-12 grid lg:grid-cols-[minmax(0,1fr),320px] gap-x-14 gap-y-12">
           <div>
             <Section title="Overview" i={0}>
               <p className="text-lg">{description}</p>
@@ -143,7 +145,7 @@ export default function ProjectDetail() {
 
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2 text-sm font-medium text-brass-dark hover:text-espresso-900 transition-colors"
+              className="mt-2 inline-flex items-center gap-2 border-t border-espresso-200 pt-6 text-sm font-medium text-brass-dark hover:text-espresso-900 transition-colors"
             >
               <HiArrowLeft /> Back to all projects
             </Link>
@@ -154,7 +156,7 @@ export default function ProjectDetail() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:sticky lg:top-24 self-start"
+            className="lg:sticky lg:top-28 self-start"
           >
             <div className="card p-6">
               <h3 className="font-serif text-lg mb-4 text-espresso-950">Tech stack</h3>

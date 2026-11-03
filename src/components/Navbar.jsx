@@ -22,16 +22,22 @@ export default function Navbar() {
   const isResume = location.pathname === "/resume";
 
   useEffect(() => {
+    let frame = 0;
     const onScroll = () => {
-      setScrolled(window.scrollY > 24);
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 24);
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+      });
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
+      cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -66,8 +72,10 @@ export default function Navbar() {
     setIsOpen(false);
     if (location.pathname !== "/") {
       navigate("/", { state: { scrollToId: id } });
+    } else if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 

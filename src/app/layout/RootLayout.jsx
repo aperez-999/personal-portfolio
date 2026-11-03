@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
@@ -12,7 +12,7 @@ function useHashScroll() {
       if (el) {
         setTimeout(() => {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 0);
+        }, 40);
       }
     }
   }, [location]);
@@ -33,9 +33,26 @@ function useDocumentTitle() {
   }, [location.pathname]);
 }
 
+function useScrollOnNavigate() {
+  const location = useLocation();
+  const prevPath = React.useRef(location.pathname);
+
+  React.useLayoutEffect(() => {
+    const pathChanged = prevPath.current !== location.pathname;
+    prevPath.current = location.pathname;
+    if (!pathChanged || location.state?.scrollToId || location.hash) return;
+    // Instant, so a long page doesn't glide through the new route.
+    // In-page links still use smooth scrolling.
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [location.pathname, location.hash, location.state]);
+}
+
 export default function RootLayout() {
   useHashScroll();
   useDocumentTitle();
+  useScrollOnNavigate();
+  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-espresso-50 text-espresso-900">
@@ -51,11 +68,10 @@ export default function RootLayout() {
       >
         Skip to content
       </a>
-      <main id="main-content" role="main" tabIndex={-1}>
+      <main id="main-content" role="main" tabIndex={-1} key={location.pathname} className="page-in">
         <Outlet />
       </main>
       <Footer />
-      <ScrollRestoration />
     </div>
   );
 }

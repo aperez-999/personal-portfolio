@@ -13,9 +13,10 @@ export default function HomePage() {
     const id = location.state?.scrollToId;
     if (id) {
       setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+        else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         navigate(location.pathname, { replace: true, state: null });
-      }, 0);
+      }, 60);
     }
   }, [location, navigate]);
 

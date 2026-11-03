@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { HiCodeBracket, HiArrowUpRight } from 'react-icons/hi2';
 import { HiStar } from 'react-icons/hi';
 import ProjectPlaceholder from './ProjectPlaceholder';
+import ProjectPreview from './ProjectPreview';
 
 const ProjectCard = ({ project }) => {
-  const { title, description, image, codeUrl, liveUrl, technologies = [], slug, featured } = project;
+  const { title, description, image, preview, codeUrl, liveUrl, technologies = [], slug, featured } = project;
   const computedSlug = slug || (title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const [broken, setBroken] = useState(false);
   const primary = technologies[0];
@@ -20,8 +21,10 @@ const ProjectCard = ({ project }) => {
     >
       {/* Media */}
       <Link to={`/projects/${computedSlug}`} className="relative block h-52 overflow-hidden bg-espresso-900">
-        {broken ? (
+        {broken || !image ? (
           <ProjectPlaceholder primary={primary} />
+        ) : preview ? (
+          <ProjectPreview web={preview.web} ios={preview.ios} fallback={image} alt={title} />
         ) : (
           <img
             src={image}
@@ -90,6 +93,10 @@ ProjectCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     image: PropTypes.string,
+    preview: PropTypes.shape({
+      web: PropTypes.string,
+      ios: PropTypes.string,
+    }),
     codeUrl: PropTypes.string,
     liveUrl: PropTypes.string,
     technologies: PropTypes.arrayOf(PropTypes.string),
