@@ -9,26 +9,27 @@ const paragraphs = personalInfo.aboutMe.split('\n\n').map((p) => p.trim()).filte
 const facts = [
   { icon: HiOutlineLocationMarker, label: 'Based in', value: personalInfo.location },
   { icon: HiOutlineAcademicCap, label: 'Studying', value: `${personalInfo.education.degree}, ${personalInfo.education.graduationYear}` },
-  { icon: HiOutlineBriefcase, label: 'Currently', value: 'Incoming Assoc. SWE @ Royal Caribbean' },
+  { icon: HiOutlineBriefcase, label: 'Joining', value: 'Royal Caribbean as Assoc. SWE, January 2027' },
 ];
 
-export default function About() {
+export default function About({ standalone = false }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   return (
-    <section id="about" className="section-y bg-espresso-50 scroll-mt-20" ref={ref}>
+    <section className={`section-y bg-espresso-50 ${standalone ? '!pt-28' : ''}`} ref={ref}>
       <div className="container-p">
         {/* Heading */}
         <motion.div
+          id="about"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl"
+          className="scroll-mt-28 max-w-2xl"
         >
           <p className="eyebrow"><span className="h-px w-8 bg-brass/50" />About me</p>
           <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">
-            Engineer, builder, and lifelong learner.
+            I build web apps and AI features.
           </h2>
         </motion.div>
 
@@ -96,7 +97,9 @@ export default function About() {
                     </h4>
                     <span className="text-sm text-espresso-500">{exp.period}</span>
                   </div>
-                  <p className="text-brass-dark font-medium">{exp.company} · {exp.location}</p>
+                  <p className="text-brass-dark font-medium">
+                    {exp.location ? `${exp.company} · ${exp.location}` : exp.company}
+                  </p>
                   {exp.highlights?.length > 0 && (
                     <ul className="mt-3 space-y-1.5 text-espresso-700 text-[0.95rem]">
                       {exp.highlights.slice(0, 3).map((h, i) => (

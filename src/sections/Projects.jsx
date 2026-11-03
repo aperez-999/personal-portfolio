@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 import ProjectFilter from '../components/ProjectFilter';
 import { projects } from '../data/projects';
 
-const AI_TECH = ['Groq API', 'OpenAI API', 'Ollama', 'AI Orchestration', 'Agent Workflows'];
+const AI_TECH = ['Groq API', 'OpenAI API', 'Gemini API', 'Ollama', 'MCP'];
 const FULLSTACK_TECH = ['Node.js', 'Express', 'Express.js', 'Supabase', 'MongoDB', 'PostgreSQL'];
 
 function categorize(project) {
@@ -20,7 +20,7 @@ function categorize(project) {
 
 const CATEGORIES = ['All', 'Featured', 'AI & LLM', 'Full-Stack', 'Frontend'];
 
-export default function Projects() {
+export default function Projects({ standalone = false }) {
   const [filter, setFilter] = useState('All');
   const [visible, setVisible] = useState(6);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
@@ -34,18 +34,19 @@ export default function Projects() {
   const shown = filtered.slice(0, visible);
 
   return (
-    <section id="projects" className="section-y bg-espresso-50 scroll-mt-20" ref={ref}>
+    <section className={`section-y bg-espresso-50 ${standalone ? '!pt-28' : ''}`} ref={ref}>
       <div className="container-p">
         <motion.div
+          id="projects"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto"
+          className="scroll-mt-28 text-center max-w-2xl mx-auto"
         >
           <p className="eyebrow justify-center"><span className="h-px w-8 bg-brass/50" />Selected work</p>
-          <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">Projects & case studies</h2>
+          <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">Selected projects</h2>
           <p className="mt-4 text-espresso-600 text-lg">
-            A mix of production SaaS, AI tooling, and full-stack builds from founding products to shipping features.
+            SaaS products, AI tools, and full-stack apps, including work I founded and features I shipped on a team.
           </p>
         </motion.div>
 
@@ -57,11 +58,12 @@ export default function Projects() {
           />
         </div>
 
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div layout className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           <AnimatePresence mode="popLayout">
             {shown.map((project) => (
               <motion.div
                 key={project.slug || project.title}
+                className="h-full"
                 layout
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}

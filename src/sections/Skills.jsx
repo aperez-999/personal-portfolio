@@ -36,25 +36,26 @@ const langIcon = {
   'C++': SiCplusplus,
 };
 
-export default function Skills() {
+export default function Skills({ standalone = false }) {
   const [tab, setTab] = useState('languages');
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const stack = [...frameworks, ...aiTechnologies];
 
   return (
-    <section id="skills" className="section-y bg-espresso-100/60 scroll-mt-20" ref={ref}>
+    <section className={`section-y bg-espresso-100/60 ${standalone ? '!pt-28' : ''}`} ref={ref}>
       <div className="container-p">
         <motion.div
+          id="skills"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl"
+          className="scroll-mt-28 max-w-2xl"
         >
           <p className="eyebrow"><span className="h-px w-8 bg-brass/50" />Skills & expertise</p>
-          <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">The tools behind the work.</h2>
+          <h2 className="mt-4 text-4xl sm:text-5xl font-semibold">Tools I use.</h2>
           <p className="mt-4 text-espresso-600 text-lg">
-            Languages, frameworks, and platforms I use to design, build, and ship production software.
+            Languages, frameworks, and tools I use on web apps and AI features.
           </p>
         </motion.div>
 

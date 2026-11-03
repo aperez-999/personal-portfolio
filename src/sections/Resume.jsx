@@ -14,8 +14,8 @@ const Resume = () => {
 
   return (
     <div className="bg-espresso-50 print:bg-white">
-      {/* Dark hero band — mirrors the site's project-detail motif (hidden on print) */}
-      <header className="relative overflow-hidden bg-espresso-950 text-espresso-50 pt-28 pb-16 print:hidden">
+      {/* Dark hero band - mirrors the site's project-detail motif (hidden on print) */}
+      <header className="relative overflow-hidden bg-espresso-950 text-espresso-50 pt-28 pb-24 print:hidden">
         <div
           className="pointer-events-none absolute -top-32 -right-24 h-[32rem] w-[32rem] rounded-full opacity-30"
           style={{ background: 'radial-gradient(circle, rgba(176,137,72,0.28) 0%, rgba(176,137,72,0) 60%)' }}
@@ -43,14 +43,14 @@ const Resume = () => {
             </button>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-8">
             <p className="eyebrow text-brass-light mb-3">
               <span className="h-px w-8 bg-brass-light/60" />Résumé
             </p>
             <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-espresso-50">
               Alejandro Perez-Rivero
             </h1>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm mt-5 text-espresso-100/75">
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-espresso-100/75">
               <span className="inline-flex items-center gap-1.5"><HiOutlineLocationMarker className="text-brass-light" /> Miami, FL</span>
               <span className="inline-flex items-center gap-1.5"><HiOutlinePhone className="text-brass-light" /> (786) 481-8530</span>
               <a href="mailto:alexperezr456@gmail.com" className="inline-flex items-center gap-1.5 hover:text-espresso-50 transition-colors">
@@ -63,13 +63,13 @@ const Resume = () => {
         </div>
       </header>
 
-      {/* One continuous resume sheet — like a real single-page document */}
-      <div className="container-p -mt-8 pb-24 print:mt-0 print:pb-0 relative">
+      {/* One continuous resume sheet - like a real single-page document */}
+      <div className="container-p -mt-12 pb-24 print:mt-0 print:pb-0 relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-white text-espresso-800 border border-espresso-200/60 shadow-lift print:shadow-none print:border-none rounded-3xl px-6 sm:px-14 py-12 sm:py-14 max-w-4xl mx-auto"
+          className="mx-auto max-w-4xl rounded-3xl border border-espresso-200/60 bg-white px-6 py-10 text-espresso-800 shadow-lift print:border-none print:shadow-none sm:px-12 sm:py-12"
         >
           {/* Print-only header, since the dark hero is hidden on print */}
           <div className="hidden print:block text-center mb-8 pb-6 border-b border-espresso-200">
@@ -81,53 +81,71 @@ const Resume = () => {
 
           <Block title="Summary">
             <p className="text-[0.95rem] leading-relaxed">
-              Full-stack software engineer and FIU Computer Science student with experience shipping production
-              features at Royal Caribbean Group and Boats Group. Skilled in React, Next.js, TypeScript, Spring Boot,
-              Node.js, and AWS. Builds scalable web applications, REST APIs, and AI-driven products. U.S. citizen,
-              open to remote or on-site software engineering roles.
+              Full-stack and AI software engineer. FIU Computer Science student, expected graduation December 2026.
+              Completed a summer 2026 internship at Royal Caribbean Group. Joining the company as an Associate
+              Software Engineer in January 2027. That role has not started. Founder of Offervia. Previously a software developer intern
+              at Boats Group. React, Next.js, TypeScript, Spring Boot, Node.js, and AWS. U.S. citizen.
             </p>
           </Block>
 
           <Block title="Experience">
             <Entry
-              title="Royal Caribbean Group — IT Enterprise Products Quality Shipboard Engineer Intern"
+              title="Royal Caribbean Group - Associate Software Engineer (Incoming)"
+              meta="Starting January 2027"
+              sub="Miramar, FL"
+              bullets={['Offer accepted. This role has not started.']}
+            />
+            <Entry
+              title="Royal Caribbean Group - IT Enterprise Products Quality Shipboard Engineer Intern"
               meta="May 2026 – Aug 2026"
               sub="Miramar, FL"
               bullets={[
-                'Developed and shipped production full-stack features for the Crew Management platform using Next.js, React, TypeScript, Reactive Java, Spring Boot, and MariaDB.',
-                'Owned end-to-end delivery across frontend, backend, BFF, and database layers for enterprise workforce capabilities including Position Hierarchy, Voyage Planning, Kitchen Number, and Supervisor Resolution.',
-                'Designed REST APIs, Flyway migrations, reactive services, and scalable data models; collaborated with PMs, UX, architects, and senior engineers via Agile design reviews.',
+                'Shipped full-stack features for the Crew Management platform with Next.js, React, TypeScript, Reactive Java, Spring Boot, and MariaDB.',
+                'Worked on Position Hierarchy, Voyage Planning, Kitchen Number, and Supervisor Resolution across the frontend, backend, BFF, and database.',
+                'Wrote REST APIs, Flyway migrations, and reactive services, and joined design reviews with PMs, UX, and senior engineers.',
               ]}
             />
             <Entry
-              title="Boats Group — Software Developer Intern"
+              title="Boats Group - Software Developer Intern"
               meta="Jun 2025 – Aug 2025"
               sub="Miami, FL"
               bullets={[
-                'Delivered 10+ production features using React, TypeScript, Node.js, and Tailwind CSS.',
-                'Improved photo-upload UX and resolved CORS/image bugs, reducing invalid submissions by 80%.',
-                'Built and launched Private Seller Analytics with real-time metrics and Kameleoon A/B testing.',
-                'Leveraged AWS S3 for media delivery, reducing image-load latency by 20%; collaborated in Agile sprints with Jira, GitHub PRs, and QA workflows.',
+                'Delivered 10+ features in the live product using React, TypeScript, Node.js, and Tailwind CSS.',
+                'Improved photo-upload UX and fixed CORS and image bugs, cutting invalid submissions by 80%.',
+                'Built Private Seller Analytics with real-time metrics and Kameleoon A/B testing.',
+                'Used AWS S3 for media delivery, cutting image-load latency by 20%. Worked in Agile sprints with Jira, GitHub PRs, and QA.',
               ]}
               last
             />
           </Block>
 
           <Block title="Projects">
-            <Entry title="Offervia — Enterprise-Grade AI Career Platform" meta="Next.js, TypeScript, Supabase, Groq API"
+            <Entry title="Offervia - AI Career Platform" meta="Next.js, TypeScript, Supabase, Groq API"
               bullets={[
-                'Founded and launched an AI-driven SaaS for resume tailoring, interview coaching, and job analysis.',
-                'Implemented secure auth, Stripe subscriptions, 26 Row-Level Security policies, and Sentry monitoring.',
-                'Deployed to offervia.app on Next.js 15 + Vercel with SEO optimization and 100% TypeScript coverage.',
+                'Founded an app for resume tailoring, interview coaching, cover letters, and ATS checks. Live at offervia.app.',
+                'Added auth, Stripe subscriptions, 26 row-level security policies, and Sentry.',
+                'Deployed on Next.js 15 and Vercel. Written in TypeScript, with Playwright tests.',
               ]} />
-            <Entry title="NutriFlow — Full-Stack Fitness & Nutrition App" meta="React, Node.js, Express, MongoDB, JWT"
+            <Entry title="NutriFlow - Fitness and nutrition app" meta="React, Node.js, Express, MongoDB, JWT, Swift"
               bullets={[
-                'Built and deployed a MERN application with JWT authentication and an AI fitness chatbot (Groq API).',
-                'Optimized queries and caching, reducing dashboard load times by 40%.',
+                'Web app for meal and workout logging, recovery check-ins, readiness scores, saved plans, and AI coaching. Live at nutriflowdev.vercel.app.',
+                'JWT auth on React, Node.js, Express, and MongoDB. Coaching uses the Groq API. Query and caching changes cut dashboard load times by 40%.',
+                'A Swift iOS app is in development and is not released yet.',
               ]} />
-            <Entry title="Corazones Vivos — Nonprofit Outreach Platform" meta="Next.js, TypeScript, Tailwind CSS, SEO"
+            <Entry title="PerezDev CLI - AI agent setup" meta="TypeScript, Node.js, MCP, GitHub Actions"
               bullets={[
-                'Architected a bilingual full-stack deployment with Vercel CI/CD and top-tier SEO crawl indexing.',
+                'CLI (npm package perezdev-hub) that syncs skills, rules, and MCP config to Claude Code, Codex, Cursor, Copilot, Cline, Windsurf, and Roo Code.',
+                'perezdev.lock.json records installed files. perezdev doctor fails CI when those files drift.',
+              ]} />
+            <Entry title="Dayform - Capstone Project" meta="React, Express, MongoDB, Gemini"
+              bullets={[
+                'Team lead for an FIU Capstone 2 fitness app. Ran Scrum with Jira tickets and daily standups.',
+                'Shipped signup, workout and meal logs, goals, and a weekly dashboard. Gemini can estimate a meal or write a short note from recent logs.',
+                'React, Vite, and Tailwind on the front. Express and MongoDB on the API. Live at dayform-fitness.vercel.app.',
+              ]} />
+            <Entry title="Corazones Vivos - Nonprofit site" meta="Next.js, TypeScript, Tailwind CSS, SEO"
+              bullets={[
+                'Bilingual Next.js site for the nonprofit, deployed on Vercel with CI and SEO for crawl indexing.',
               ]}
               last
             />
@@ -146,9 +164,9 @@ const Resume = () => {
 
           <Block title="Education" last>
             <Entry title="Florida International University (FIU)" meta="Miami, FL"
-              sub="B.S. Computer Science — GPA 3.95 · Jun 2024 – Expected Dec 2026" />
+              sub="B.S. Computer Science, GPA 3.95. Jun 2024 – Expected December 2026" />
             <Entry title="The Honors College at Miami Dade College" meta="Miami, FL"
-              sub="A.A. Computer Science — GPA 3.75 · Jun 2022 – May 2024"
+              sub="A.A. Computer Science, GPA 3.75. Jun 2022 – May 2024"
               last
             />
           </Block>
@@ -159,7 +177,7 @@ const Resume = () => {
 };
 
 const Block = ({ title, children, last }) => (
-  <section className={last ? '' : 'mb-10'}>
+  <section className={last ? '' : 'mb-9'}>
     <h2 className="font-serif text-lg font-semibold text-espresso-950 border-b border-brass/25 pb-2.5 mb-5 uppercase tracking-wide flex items-center gap-2">
       <span className="h-1.5 w-1.5 rounded-full bg-brass print:hidden" />
       {title}
@@ -169,7 +187,7 @@ const Block = ({ title, children, last }) => (
 );
 
 const Entry = ({ title, meta, sub, bullets = [], last }) => (
-  <div className={`${last ? '' : 'mb-6'} pl-4 border-l-2 border-espresso-100 print:border-espresso-200`}>
+  <div className={`${last ? '' : 'mb-7'} border-l-2 border-espresso-100 pl-4 print:border-espresso-200`}>
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-x-3">
       <h3 className="font-semibold text-espresso-900">{title}</h3>
       {meta && <span className="text-sm text-brass-dark font-medium shrink-0">{meta}</span>}

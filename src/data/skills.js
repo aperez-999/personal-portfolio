@@ -66,8 +66,8 @@ export const frameworks = [
 export const aiTechnologies = [
   { name: "OpenAI API", icon: "openai" },
   { name: "Groq API", icon: "groq" },
-  { name: "LLM Orchestration", icon: "ai" },
-  { name: "AI Agent Workflows", icon: "robot" },
+  { name: "LLM APIs", icon: "ai" },
+  { name: "Agent skills & MCP", icon: "robot" },
   { name: "Ollama (Local Models)", icon: "ollama" },
 ];
 

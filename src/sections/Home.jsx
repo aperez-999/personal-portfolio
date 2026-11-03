@@ -21,12 +21,18 @@ const fade = {
 };
 
 export default function Home() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const scrollTo = (id) => {
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-espresso-950 text-espresso-50 scroll-mt-20"
+      className="relative overflow-hidden bg-espresso-950 text-espresso-50"
     >
       {/* Subtle warm ambience — single soft radial, not glowy */}
       <div
@@ -69,9 +75,8 @@ export default function Home() {
             custom={2}
             className="mt-6 text-lg sm:text-xl text-espresso-100/80 max-w-xl"
           >
-            {personalInfo.title} building{' '}
-            <span className="text-espresso-50">scalable SaaS platforms</span>, AI workflows, and
-            modern web experiences from Miami, FL.
+            {personalInfo.title}. I build web apps and AI features from Miami.
+            Joining Royal Caribbean Group as an Associate Software Engineer in January 2027.
           </motion.p>
 
           <motion.div
